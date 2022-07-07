@@ -3,22 +3,30 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as React from "react";
+import { ColorSchemeName } from "react-native";
 
-import ModalScreen from '../screens/ModalScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import { RootStackParamList } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
+import StockDetailsScreen from "../screens/StockDetailsScreen";
+import ExploreScreen from "../screens/ExploreScreen";
+import { RootStackParamList } from "../types";
+import LinkingConfiguration from "./LinkingConfiguration";
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
       <RootNavigator />
     </NavigationContainer>
   );
@@ -33,27 +41,17 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={TabOneScreen}
-                 
-              options={({ navigation }) => ({
-                title: 'Tab One',
-                headerRight: () => (
-                  <Pressable
-                    onPress={() => navigation.navigate('Modal')}
-                    style={({ pressed }) => ({
-                      opacity: pressed ? 0.5 : 1,
-                    })}>
-                    <FontAwesome
-                      name="info-circle"
-                      size={25}
-                      style={{ marginRight: 15 }}
-                    />
-                  </Pressable>
-                ),
-              })}
-               />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+      <Stack.Screen
+        name="Root"
+        component={ExploreScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen
+          name="StockDetails"
+          component={StockDetailsScreen}
+          options={{ title: "Stock Details" }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
