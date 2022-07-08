@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect } from "react";
-import { Button, FlatList, ListRenderItem, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Button, FlatList, ListRenderItem, StyleSheet } from "react-native";
 import Search from "../components/Explore/Search";
 import StockListItem from "../components/Explore/StockListItem";
 
@@ -18,20 +18,32 @@ export default function ExploreScreen({
   const loadData = useActions().loadStocks;
 
   useEffect(() => {
-    loadData("");
+    loadData();
   }, []);
   const renderItem: ListRenderItem<Stock> = ({ item }) => {
     return <StockListItem stock={item} />;
   };
 
+  const renderFooter = () => {
+    let loader = null;
+    loader = <ActivityIndicator size="large" color={theme.colors.secondary} />;
+    return <View>{data.length > 8 ? loader : null}</View>;
+  };
+
   return (
     <View style={styles.container}>
       {loading ? (
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" color={theme.colors.secondary} />
       ) : (
         <React.Fragment>
           <Search placeholder="Search..." />
-          <FlatList data={data} renderItem={renderItem} />
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            onEndReached={loadData || null}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={renderFooter}
+          />
         </React.Fragment>
       )}
       {/* <Button
