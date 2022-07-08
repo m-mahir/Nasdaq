@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, FlatList, ListRenderItem, StyleSheet } from "react-native";
+import Search from "../components/Explore/Search";
 import StockListItem from "../components/Explore/StockListItem";
 
 import { Text, View } from "../components/Themed";
@@ -28,7 +29,10 @@ export default function ExploreScreen({
       {loading ? (
         <Text>Loading...</Text>
       ) : (
-        <FlatList data={data} renderItem={renderItem} />
+        <React.Fragment>
+          <Search placeholder="Search..." />
+          <FlatList data={data} renderItem={renderItem} />
+        </React.Fragment>
       )}
       {/* <Button
         title="Go To Details"
@@ -41,9 +45,9 @@ export default function ExploreScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 35,
-    paddingHorizontal: 25,
+    paddingTop: 25,
+    paddingBottom: 15,
     justifyContent: "center",
     backgroundColor: theme.colors.primary,
-  }
+  },
 });

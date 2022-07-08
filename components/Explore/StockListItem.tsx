@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { ThemeText } from "../ThemeText";
-import { Text, View } from "../Themed";
+import { View } from "../Themed";
 import { theme } from "../../contants";
 
 interface Props {
@@ -26,15 +26,17 @@ export default function StockListItem({ stock }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     backgroundColor: theme.colors.primary,
+    paddingHorizontal: 25,
+    paddingTop: 22,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
   },
   separator: {
-    marginVertical: 25,
+    marginTop: 22,
     height: 1,
   },
 });
