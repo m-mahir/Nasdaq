@@ -10,19 +10,25 @@ import { RootStackParamList } from "../types";
 export default function ExploreScreen({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, "Root", "Modal">) {
-  const loading = useAppState().isLoading
-  const data = useAppState().stocks
-  const loadData = useActions().loadStocks
+  const loading = useAppState().isLoading;
+  const data = useAppState().stocks;
+  const loadData = useActions().loadStocks;
+  
   useEffect(() => {
-    loadData('');
+    loadData("");
   }, []);
   const renderItem: ListRenderItem<Stock> = ({ item }) => {
-    return <Text>{item.name}</Text>;}
+    return <Text>{item.name}</Text>;
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Explore</Text>
-      {loading ? <Text style={styles.title}>Loading...</Text> : <FlatList data={data} renderItem={renderItem} />}
+      {loading ? (
+        <Text style={styles.title}>Loading...</Text>
+      ) : (
+        <FlatList data={data} renderItem={renderItem} />
+      )}
       <Button
         title="Go To Details"
         onPress={() => navigation.navigate("StockDetails")}
