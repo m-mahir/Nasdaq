@@ -13,7 +13,7 @@ export default function ExploreScreen({
   const loading = useAppState().isLoading;
   const data = useAppState().stocks;
   const loadData = useActions().loadStocks;
-  
+
   useEffect(() => {
     loadData("");
   }, []);
