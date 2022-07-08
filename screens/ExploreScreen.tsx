@@ -1,8 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect } from "react";
 import { Button, FlatList, ListRenderItem, StyleSheet } from "react-native";
+import StockListItem from "../components/Explore/StockListItem";
 
 import { Text, View } from "../components/Themed";
+import { theme } from "../contants";
 import { useActions, useAppState } from "../overmind";
 import { Stock } from "../overmind/state";
 import { RootStackParamList } from "../types";
@@ -18,21 +20,20 @@ export default function ExploreScreen({
     loadData("");
   }, []);
   const renderItem: ListRenderItem<Stock> = ({ item }) => {
-    return <Text>{item.name}</Text>;
+    return <StockListItem stock={item} />;
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Explore</Text>
       {loading ? (
-        <Text style={styles.title}>Loading...</Text>
+        <Text>Loading...</Text>
       ) : (
         <FlatList data={data} renderItem={renderItem} />
       )}
-      <Button
+      {/* <Button
         title="Go To Details"
         onPress={() => navigation.navigate("StockDetails")}
-      />
+      /> */}
     </View>
   );
 }
@@ -40,11 +41,9 @@ export default function ExploreScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    paddingVertical: 35,
+    paddingHorizontal: 25,
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
+    backgroundColor: theme.colors.primary,
+  }
 });
