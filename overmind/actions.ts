@@ -1,8 +1,23 @@
+import { json } from "overmind";
 import { Context } from "./";
 
-export const loadStocks = async (context: Context) => {
+interface Payload {
+  search?: string;
+  isLoadMore?: boolean;
+}
+
+export const loadStocks = async (context: Context, payload: Payload = {}) => {
   context.state.isLoading = true;
-  const newStocks = await context.effects.jsonPlacholder.getStocks();
-  context.state.stocks = [...context.state.stocks, ...newStocks];
+  try {
+    const newStocks = await context.effects.jsonPlacholder.getStocks(
+      payload.search
+    );
+    if (payload.isLoadMore)
+      context.state.stocks = [...context.state.stocks, ...newStocks];
+    else context.state.stocks = newStocks;
+  } catch (err) {
+    console.log(err);
+  }
+
   context.state.isLoading = false;
 };

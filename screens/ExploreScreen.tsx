@@ -1,10 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Button, FlatList, ListRenderItem, StyleSheet } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  Button,
+  FlatList,
+  ListRenderItem,
+  StyleSheet,
+} from "react-native";
 import Search from "../components/Explore/Search";
 import StockListItem from "../components/Explore/StockListItem";
 
-import { Text, View } from "../components/Themed";
+import { View } from "../components/Themed";
 import { theme } from "../contants";
 import { useActions, useAppState } from "../overmind";
 import { Stock } from "../overmind/state";
@@ -19,7 +25,7 @@ export default function ExploreScreen({
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [loadData]);
   const renderItem: ListRenderItem<Stock> = ({ item }) => {
     return <StockListItem stock={item} />;
   };
@@ -27,7 +33,18 @@ export default function ExploreScreen({
   const renderFooter = () => {
     let loader = null;
     loader = <ActivityIndicator size="large" color={theme.colors.secondary} />;
-    return <View>{data.length > 8 ? loader : null}</View>;
+    return <View>{data && data.length > 8 ? loader : null}</View>;
+  };
+
+  const [searchInputText, setSearchInputText] = useState("");
+  const timeOutRef: { current: NodeJS.Timeout | null } = useRef(null);
+
+  const updateSearch = (val: string) => {
+    setSearchInputText(val);
+    if (timeOutRef.current) clearTimeout(timeOutRef.current);
+    timeOutRef.current = setTimeout(function () {
+      loadData({ search: val });
+    }, 500);
   };
 
   return (
@@ -36,11 +53,18 @@ export default function ExploreScreen({
         <ActivityIndicator size="large" color={theme.colors.secondary} />
       ) : (
         <React.Fragment>
-          <Search placeholder="Search..." />
+          <Search
+            placeholder="Search..."
+            onChange={updateSearch}
+            value={searchInputText}
+          />
           <FlatList
             data={data}
             renderItem={renderItem}
-            onEndReached={loadData || null}
+            onEndReached={() => {
+              if (data.length >= 10 && data.length % 10 === 0)
+                loadData({ search: searchInputText, isLoadMore: true }) || null;
+            }}
             onEndReachedThreshold={0.1}
             ListFooterComponent={renderFooter}
           />

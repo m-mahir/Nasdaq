@@ -5,21 +5,24 @@ import { SearchBar } from "@rneui/themed";
 
 interface Props {
   placeholder: string;
+  onChange: (val: string) => void;
+  value: string;
 }
 
-export default function Search({ placeholder }: Props) {
-
+export default function Search({ placeholder, onChange, value }: Props) {
   return (
     <View style={styles.searchBar}>
       <SearchBar
         placeholder={placeholder}
-        // onChangeText={updateSearch}
-        // value={searchTxt}
+        onChangeText={(val) => onChange(val)}
+        value={value}
         lightTheme={true}
         round={true}
+        inputStyle={styles.text}
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.inputContainerStyle}
         placeholderTextColor={theme.colors.secondary}
+        clearIcon={{ size: 22, color: theme.colors.secondary }}
         searchIcon={{ size: 22, color: theme.colors.secondary }}
       />
     </View>
@@ -42,5 +45,8 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     borderRadius: 12,
     alignItems: "center",
+  },
+  text: {
+    color: theme.colors.secondary,
   },
 });
