@@ -1,4 +1,3 @@
-import { json } from "overmind";
 import { Stock } from "./state";
 
 const API_KEY = "&apiKey=pTf0LEXOW3sGRJbeQGDM44tUl9tsJpVN";
@@ -13,8 +12,8 @@ export const jsonPlacholder = {
     try {
       if (url) {
         if (
-          (url.includes("&search=") && !search) ||
-          (!url.includes("&search=") && search)
+          (url.includes("&search=") && (!search || !search.length)) ||
+          (!url.includes("&search=") && search && search.length)
         )
           url = initialUrl;
         if (search) {

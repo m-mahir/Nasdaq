@@ -2,7 +2,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
   FlatList,
   ListRenderItem,
   StyleSheet,
@@ -23,9 +22,20 @@ export default function ExploreScreen({
   const data = useAppState().stocks;
   const loadData = useActions().loadStocks;
 
+  const [filter, setFilter] = useState("");
+  const searchRef = useRef<any>();
+
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    let timeout;
+
+    if (filter?.length) {
+      timeout = setTimeout(() => {
+        if (filter === searchRef.current.props.value)
+          loadData({ search: filter });
+      }, 500);
+    } else loadData();
+  }, [filter, searchRef]);
+
   const renderItem: ListRenderItem<Stock> = ({ item }) => {
     return <StockListItem stock={item} />;
   };
@@ -36,17 +46,6 @@ export default function ExploreScreen({
     return <View>{data && data.length > 8 ? loader : null}</View>;
   };
 
-  const [searchInputText, setSearchInputText] = useState("");
-  const timeOutRef: { current: NodeJS.Timeout | null } = useRef(null);
-
-  const updateSearch = (val: string) => {
-    setSearchInputText(val);
-    if (timeOutRef.current) clearTimeout(timeOutRef.current);
-    timeOutRef.current = setTimeout(function () {
-      loadData({ search: val });
-    }, 500);
-  };
-
   return (
     <View style={styles.container}>
       {loading ? (
@@ -55,15 +54,16 @@ export default function ExploreScreen({
         <React.Fragment>
           <Search
             placeholder="Search..."
-            onChange={updateSearch}
-            value={searchInputText}
+            onChange={setFilter}
+            value={filter}
+            inputRef={searchRef}
           />
           <FlatList
             data={data}
             renderItem={renderItem}
             onEndReached={() => {
               if (data.length >= 10 && data.length % 10 === 0)
-                loadData({ search: searchInputText, isLoadMore: true }) || null;
+                loadData({ search: filter, isLoadMore: true });
             }}
             onEndReachedThreshold={0.1}
             ListFooterComponent={renderFooter}

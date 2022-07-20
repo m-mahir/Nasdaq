@@ -7,15 +7,17 @@ interface Props {
   placeholder: string;
   onChange: (val: string) => void;
   value: string;
+  inputRef: any;
 }
 
-export default function Search({ placeholder, onChange, value }: Props) {
+export default function Search({ placeholder, onChange, value, inputRef }: Props) {
   return (
     <View style={styles.searchBar}>
       <SearchBar
         placeholder={placeholder}
         onChangeText={(val) => onChange(val)}
         value={value}
+        ref={inputRef}
         lightTheme={true}
         round={true}
         inputStyle={styles.text}
