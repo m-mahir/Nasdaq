@@ -1,4 +1,3 @@
-import { json } from "overmind";
 import { Context } from "./";
 
 interface Payload {

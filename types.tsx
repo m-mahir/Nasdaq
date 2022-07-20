@@ -13,7 +13,7 @@ declare global {
 
 export type RootStackParamList = {
   Root: undefined;
-  StockDetails: undefined;
+  StockDetails: { ticker: string };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

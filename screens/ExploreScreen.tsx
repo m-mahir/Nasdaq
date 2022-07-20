@@ -36,8 +36,11 @@ export default function ExploreScreen({
     } else loadData();
   }, [filter, searchRef]);
 
+  const itemClickedHandler = (ticker: string) =>
+    navigation.navigate("StockDetails", { ticker });
+
   const renderItem: ListRenderItem<Stock> = ({ item }) => {
-    return <StockListItem stock={item} />;
+    return <StockListItem stock={item} onItemClicked={()=>itemClickedHandler(item.ticker)} />;
   };
 
   const renderFooter = () => {
@@ -70,10 +73,6 @@ export default function ExploreScreen({
           />
         </React.Fragment>
       )}
-      {/* <Button
-        title="Go To Details"
-        onPress={() => navigation.navigate("StockDetails")}
-      /> */}
     </View>
   );
 }
