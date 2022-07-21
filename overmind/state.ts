@@ -1,6 +1,6 @@
 export type Stock = {
-  ticker?: string;
-  name?: string;
+  ticker: string;
+  name: string;
   logo?: string;
   aggregates?: Aggregates;
   companyWebsiteURL?: string;
@@ -27,5 +27,8 @@ export const state: State = {
   isLoading: false,
   isLoadingAggs: false,
   stocks: [],
-  currentStock: {}
+  currentStock: {
+    ticker: '',
+    name: '',
+  }
 };
