@@ -1,30 +1,34 @@
 import { useEffect } from "react";
 import { StyleSheet } from "react-native";
+import { About } from "../components/Details/About";
+import { Header } from "../components/Details/Header";
+import { Statistics } from "../components/Details/Statistics";
 
-import { Text, View } from "../components/Themed";
+import { View } from "../components/Themed";
 import { useActions, useAppState } from "../overmind";
 import { RootStackScreenProps } from "../types";
 
 export default function StockDetailsScreen({
   route,
 }: RootStackScreenProps<"StockDetails">) {
-  const loadingDetails = useAppState().isLoading;
-  const loadingAggs = useAppState().isLoadingAggs;
+  const ticker = route.params.ticker;
+
   const stock = useAppState().currentStock;
   const loadDetails = useActions().loadStockDetails;
   const loadAggs = useActions().loadStockAggs;
 
+  const aggregates = stock?.aggregates;
+
   useEffect(() => {
-    loadDetails(route.params.ticker);
-    loadAggs(route.params.ticker);
-  }, [route.params.ticker]);
+    loadDetails(ticker);
+    loadAggs(ticker);
+  }, [ticker]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{route.params.ticker}</Text>
-      <Text style={styles.title}>{stock?.description}</Text>
-      <Text style={styles.title}>{stock?.industry}</Text>
-      <Text style={styles.title}>{stock?.aggregates?.close}</Text>
+      <Header stock={stock} />
+      <Statistics aggregates={aggregates} />
+      <About stock={stock} />
     </View>
   );
 }
@@ -32,11 +36,5 @@ export default function StockDetailsScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
   },
 });
