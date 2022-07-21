@@ -5,6 +5,7 @@ import { Header } from "../components/Details/Header";
 import { Statistics } from "../components/Details/Statistics";
 
 import { View } from "../components/Themed";
+import { theme } from "../contants";
 import { useActions, useAppState } from "../overmind";
 import { RootStackScreenProps } from "../types";
 
@@ -36,5 +37,7 @@ export default function StockDetailsScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 15,
+    backgroundColor: theme.colors.primary
   },
 });
