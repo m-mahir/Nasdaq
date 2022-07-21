@@ -37,7 +37,6 @@ export default function StockDetailsScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
     backgroundColor: theme.colors.primary
   },
 });

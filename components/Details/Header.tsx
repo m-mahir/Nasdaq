@@ -23,8 +23,7 @@ export function Header({ stock }: Props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.primaryLight,
-    padding: 10,
-    borderRadius: 15
+    padding: 15,
   },
   ticker: {
     fontSize: 30,
