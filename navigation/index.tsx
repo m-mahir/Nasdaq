@@ -16,6 +16,7 @@ import StockDetailsScreen from "../screens/StockDetailsScreen";
 import ExploreScreen from "../screens/ExploreScreen";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import { theme } from "../contants";
 
 export default function Navigation({
   colorScheme,
@@ -50,7 +51,16 @@ function RootNavigator() {
         <Stack.Screen
           name="StockDetails"
           component={StockDetailsScreen}
-          options={{ title: "Stock Details" }}
+          options={{
+            title: "Stock Details",
+            headerStyle: {
+              backgroundColor: theme.colors.primary,
+            },
+            headerTintColor: theme.colors.secondary,
+            headerTitleStyle: {
+              fontSize: 24
+            },
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>

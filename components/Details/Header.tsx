@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { theme } from "../../contants";
 import { useAppState } from "../../overmind";
 import { Stock } from "../../overmind/state";
+import { ThemeText } from "../ThemeText";
 
 interface Props {
   stock: Stock;
@@ -11,16 +13,26 @@ export function Header({ stock }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{stock.ticker}</Text>
-      <Text>{stock.aggregates?.close}</Text>
+      <ThemeText style={styles.ticker}>{stock.ticker}</ThemeText>
+      <ThemeText style={styles.name}>{stock.name}</ThemeText>
+      <ThemeText style={styles.price}>{stock.aggregates?.close}</ThemeText>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  container: {
+    backgroundColor: theme.colors.primaryLight,
+    padding: 10,
+    borderRadius: 15
+  },
+  ticker: {
+    fontSize: 30,
+  },
+  name: {
+    fontSize: 16,
+  },
+  price: {
+    fontSize: 40,
   },
 });
