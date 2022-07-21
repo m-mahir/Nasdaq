@@ -1,31 +1,35 @@
-import { Stock } from "./state";
+import moment from "moment";
+import { API_KEY, BASE_URL } from "../config";
+import { Aggregates, Stock } from "./state";
 
-const API_KEY = "&apiKey=pTf0LEXOW3sGRJbeQGDM44tUl9tsJpVN";
-const initialUrl =
-  "https://api.polygon.io/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10" +
+const fetchStocksInitialUrl =
+  BASE_URL +
+  "/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&" +
   API_KEY;
-
-let url = initialUrl;
+let fetchStockURL = fetchStocksInitialUrl;
 
 export const jsonPlacholder = {
   getStocks: async (search?: string): Promise<Stock[]> => {
     try {
-      if (url) {
+      if (fetchStockURL) {
         if (
-          (url.includes("&search=") && (!search || !search.length)) ||
-          (!url.includes("&search=") && search && search.length)
+          (fetchStockURL.includes("&search=") && (!search || !search.length)) ||
+          (!fetchStockURL.includes("&search=") && search && search.length)
         )
-          url = initialUrl;
+          fetchStockURL = fetchStocksInitialUrl;
         if (search) {
-          if (url.includes("&search="))
-            url = url.substring(0, url.indexOf("&search="));
-          url += "&search=" + search;
+          if (fetchStockURL.includes("&search="))
+            fetchStockURL = fetchStockURL.substring(
+              0,
+              fetchStockURL.indexOf("&search=")
+            );
+          fetchStockURL += "&search=" + search;
         }
-        const response = await fetch(url);
+        const response = await fetch(fetchStockURL);
         let jsonResponse = await response.json();
         if (jsonResponse.next_url) {
-          url = jsonResponse.next_url + API_KEY;
-          if (search) url += "&search=" + search;
+          fetchStockURL = jsonResponse.next_url + "&" + API_KEY;
+          if (search) fetchStockURL += "&search=" + search;
         }
         return jsonResponse.results;
       }
@@ -34,5 +38,49 @@ export const jsonPlacholder = {
       return [];
     }
     return [];
+  },
+  getStockDetails: async (ticker: string): Promise<Stock | null> => {
+    const url = `${BASE_URL}/v3/reference/tickers/${ticker}?${API_KEY}`;
+    try {
+      const response = await fetch(url);
+      let jsonResponse = await response.json();
+
+      return {
+        name: jsonResponse.results.name,
+        ticker: jsonResponse.results.ticker,
+        logo: jsonResponse.results.branding?.logo_url,
+        companyWebsiteURL: jsonResponse.results.homepage_url,
+        industry: jsonResponse.results.sic_description,
+        description: jsonResponse.results.description,
+      };
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
+
+  getStockAggs: async (ticker: string): Promise<Aggregates | null> => {
+    const previousDayDate = new Date(
+      new Date().setDate(new Date().getDate() - 1)
+    );
+    const date = moment(previousDayDate).format("yyyy-MM-DD");
+    const url = `${BASE_URL}/v2/aggs/ticker/${ticker}/range/1/day/${date}/${date}?adjusted=true&sort=asc&limit=120&${API_KEY}`;
+    try {
+      const response = await fetch(url);
+      let jsonResponse = await response.json();
+
+      if (jsonResponse.results && jsonResponse.results.length)
+        return {
+          open: jsonResponse.results[0].o,
+          close: jsonResponse.results[0].c,
+          high: jsonResponse.results[0].h,
+          low: jsonResponse.results[0].l,
+          volume: jsonResponse.results[0].v,
+        };
+      return null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   },
 };
