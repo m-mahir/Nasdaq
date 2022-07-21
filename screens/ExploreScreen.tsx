@@ -1,13 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  ActivityIndicator,
   FlatList,
   ListRenderItem,
   StyleSheet,
 } from "react-native";
 import Search from "../components/Explore/Search";
 import StockListItem from "../components/Explore/StockListItem";
+import { Loader } from "../components/Loader";
 
 import { View } from "../components/Themed";
 import { theme } from "../contants";
@@ -45,14 +45,14 @@ export default function ExploreScreen({
 
   const renderFooter = () => {
     let loader = null;
-    loader = <ActivityIndicator size="large" color={theme.colors.secondary} />;
+    loader = <Loader />;
     return <View>{data && data.length > 8 ? loader : null}</View>;
   };
 
   return (
     <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator size="large" color={theme.colors.secondary} />
+        <Loader />
       ) : (
         <React.Fragment>
           <Search
