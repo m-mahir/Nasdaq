@@ -5,10 +5,21 @@ import { useAppState } from "../../../overmind";
 import { Stock } from "../../../overmind/state";
 import { ThemeText } from "../../../components/ThemeText";
 import AboutInfo from "./section";
+import styled from "styled-components/native";
 
 interface Props {
   stock: Stock;
 }
+
+const Container = styled.View`
+  background-color: ${theme.colors.primary};
+  margin-top: 15;
+  padding: 15px;
+`;
+const TitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 export default function About({ stock }: Props) {
   const loadingDetails = useAppState().isLoading;
@@ -28,9 +39,9 @@ export default function About({ stock }: Props) {
   };
 
   return showAbout && !loadingDetails ? (
-    <View style={styles.container}>
+    <Container>
       <View>
-        <View style={styles.titleContainer}>
+        <TitleContainer>
           <ThemeText style={styles.title}>About</ThemeText>
           {stock?.companyWebsiteURL && (
             <Button
@@ -40,7 +51,7 @@ export default function About({ stock }: Props) {
               onPress={openWebsiteHandler}
             />
           )}
-        </View>
+        </TitleContainer>
         {stock?.industry && (
           <AboutInfo title="Industry">{stock?.industry}</AboutInfo>
         )}
@@ -48,20 +59,11 @@ export default function About({ stock }: Props) {
           <AboutInfo title="Description">{stock?.description}</AboutInfo>
         )}
       </View>
-    </View>
+    </Container>
   ) : null;
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: theme.colors.primary,
-    marginTop: 15,
-    padding: 15,
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   title: {
     fontSize: 22,
     fontWeight: "bold",
