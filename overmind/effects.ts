@@ -43,8 +43,8 @@ export const jsonPlacholder = {
   getStockDetails: async (ticker: string): Promise<Stock | null> => {
     const url = `${BASE_URL}/v3/reference/tickers/${ticker}?${API_KEY}`;
     try {
-      const response = await fetch(url);
-      let jsonResponse = await response.json();
+      const response = await axios.get(url);
+      let jsonResponse = await response.data;
 
       return {
         name: jsonResponse.results.name,
@@ -67,8 +67,8 @@ export const jsonPlacholder = {
     const date = moment(previousDayDate).format("yyyy-MM-DD");
     const url = `${BASE_URL}/v2/aggs/ticker/${ticker}/range/1/day/${date}/${date}?adjusted=true&sort=asc&limit=120&${API_KEY}`;
     try {
-      const response = await fetch(url);
-      let jsonResponse = await response.json();
+      const response = await axios.get(url);
+      let jsonResponse = await response.data;
 
       if (jsonResponse.results && jsonResponse.results.length)
         return {
