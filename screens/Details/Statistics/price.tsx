@@ -8,7 +8,7 @@ interface Props {
 
 const StyledView = styled.View`
   width: 33%;
-  margin-top: 12;
+  margin-top: 12px;
 `;
 
 const Price: React.FC<Props> = ({ title, children }) => (

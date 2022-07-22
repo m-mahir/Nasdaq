@@ -14,8 +14,8 @@ import styled from "styled-components/native";
 
 const Container = styled.View`
   flex: 1;
-  padding-top: 25;
-  padding-bottom: 15;
+  padding-top: 25px;
+  padding-bottom: 15px;
   justify-content: center;
   background-color: ${theme.colors.primary};
 `;

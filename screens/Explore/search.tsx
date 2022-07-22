@@ -12,8 +12,8 @@ interface Props {
 
 const StyledView = styled.View`
   background-color: ${theme.colors.primaryDark};
-  padding-vertical: 15;
-  padding-horizontal: 15;
+  padding-vertical: 15px;
+  padding-horizontal: 15px;
 `;
 
 export default function Search({ placeholder, onChange, value, inputRef }: Props) {

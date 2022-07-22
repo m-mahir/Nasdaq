@@ -15,8 +15,8 @@ interface Props {
 const TouchableItem = styled.TouchableOpacity`
   width: 100%;
   background-color: ${theme.colors.primary};
-  padding-horizontal: 25;
-  padding-top: 22;
+  padding-horizontal: 25px;
+  padding-top: 22px;
 `;
 
 export default function StockListItem({ stock, onItemClicked }: Props) {

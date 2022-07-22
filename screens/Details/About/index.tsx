@@ -13,7 +13,7 @@ interface Props {
 
 const Container = styled.View`
   background-color: ${theme.colors.primary};
-  margin-top: 15;
+  margin-top: 15px;
   padding: 15px;
 `;
 const TitleContainer = styled.View`

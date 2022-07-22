@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Container = styled.View`
-  margin-top: 12;
+  margin-top: 12px;
 `
 
 const Section: React.FC<Props> = ({ title, children }) => (

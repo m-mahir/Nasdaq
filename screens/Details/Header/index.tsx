@@ -12,7 +12,7 @@ interface Props {
 
 const Container = styled.View`
   padding: 15px;
-  min-height: 200;
+  min-height: 200px;
 `;
 const LoaderContainer = styled.View`
   flex: 1;

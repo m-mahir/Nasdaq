@@ -14,11 +14,11 @@ interface Props {
 const Container = styled.View`
   background-color: ${theme.colors.primary};
   padding: 15px;
-  min-height: 200;
+  min-height: 200px;
 `;
 const PricesContainer = styled.View`
   flex-direction: row;
-  margin-vertical: 5;
+  margin-vertical: 5px;
   flex-wrap: wrap;
 `;
 const LoaderContainer = styled.View`
