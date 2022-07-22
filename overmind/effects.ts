@@ -32,7 +32,7 @@ export const jsonPlacholder = {
           fetchStockURL = jsonResponse.next_url + "&" + API_KEY;
           if (search) fetchStockURL += "&search=" + search;
         }
-        return jsonResponse.results;
+        if (jsonResponse.status === "OK") return jsonResponse.results;
       }
     } catch (err) {
       console.log(err);
@@ -46,14 +46,16 @@ export const jsonPlacholder = {
       const response = await axios.get(url);
       let jsonResponse = await response.data;
 
-      return {
-        name: jsonResponse.results.name,
-        ticker: jsonResponse.results.ticker,
-        logo: jsonResponse.results.branding?.icon_url,
-        companyWebsiteURL: jsonResponse.results.homepage_url,
-        industry: jsonResponse.results.sic_description,
-        description: jsonResponse.results.description,
-      };
+      if (jsonResponse.status === "OK")
+        return {
+          name: jsonResponse.results.name,
+          ticker: jsonResponse.results.ticker,
+          logo: jsonResponse.results.branding?.icon_url,
+          companyWebsiteURL: jsonResponse.results.homepage_url,
+          industry: jsonResponse.results.sic_description,
+          description: jsonResponse.results.description,
+        };
+      return null;
     } catch (err) {
       console.log(err);
       return null;
@@ -61,16 +63,19 @@ export const jsonPlacholder = {
   },
 
   getStockAggs: async (ticker: string): Promise<Aggregates | null> => {
-    const previousDayDate = new Date(
-      new Date().setDate(new Date().getDate() - 1)
-    );
-    const date = moment(previousDayDate).format("yyyy-MM-DD");
-    const url = `${BASE_URL}/v2/aggs/ticker/${ticker}/range/1/day/${date}/${date}?adjusted=true&sort=asc&limit=120&${API_KEY}`;
+    let url = getStockAggsURL(ticker, 1);
     try {
-      const response = await axios.get(url);
-      let jsonResponse = await response.data;
+      let jsonResponse = await callGetRequest(url);
 
-      if (jsonResponse.results && jsonResponse.results.length)
+      if (jsonResponse.status === "DELAYED") {
+        url = getStockAggsURL(ticker, 2);
+        jsonResponse = await callGetRequest(url);
+      }
+      if (
+        jsonResponse.status === "OK" &&
+        jsonResponse.results &&
+        jsonResponse.results.length
+      )
         return {
           open: jsonResponse.results[0].o,
           close: jsonResponse.results[0].c,
@@ -84,4 +89,17 @@ export const jsonPlacholder = {
       return null;
     }
   },
+};
+
+const getStockAggsURL = (ticker: string, daysDiff: number): string => {
+  const previousDayDate = new Date(
+    new Date().setDate(new Date().getDate() - daysDiff)
+  );
+  const date = moment(previousDayDate).format("yyyy-MM-DD");
+  return `${BASE_URL}/v2/aggs/ticker/${ticker}/range/1/day/${date}/${date}?adjusted=true&sort=asc&limit=120&${API_KEY}`;
+};
+
+const callGetRequest = async (url: string) => {
+  const response = await axios.get(url);
+  return response.data;
 };
