@@ -1,28 +1,30 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 import { ThemeText } from "../../../components/ThemeText";
 
 interface Props {
   title: string;
 }
 
+const StyledView = styled.View`
+  width: 33%;
+  margin-top: 12;
+`;
+
 const Price: React.FC<Props> = ({ title, children }) => (
-  <View style={styles.container}>
+  <StyledView>
     <ThemeText style={styles.title}>{title}</ThemeText>
     <ThemeText style={styles.price}>{children}</ThemeText>
-  </View>
+  </StyledView>
 );
 
 const styles = StyleSheet.create({
-  container: {
-    width: "33%",
-    marginTop: 12
-  },
   title: {
     fontSize: 16,
   },
   price: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
 });
 
