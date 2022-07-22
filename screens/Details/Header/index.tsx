@@ -2,10 +2,9 @@ import { Image, StyleSheet, View } from "react-native";
 import styled from "styled-components/native";
 import { Loader } from "../../../components/Loader";
 import { ThemeText } from "../../../components/ThemeText";
-import { API_KEY } from "../../../config";
-import { theme } from "../../../constants";
 import { useAppState } from "../../../overmind";
 import { Stock } from "../../../overmind/state";
+import Logo from "./logo";
 
 interface Props {
   stock: Stock;
@@ -23,32 +22,21 @@ const LoaderContainer = styled.View`
 export function Header({ stock }: Props) {
   const loadingDetails = useAppState().isLoading;
 
+  if (loadingDetails)
+    return (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    );
+
   return (
     <Container>
-      {loadingDetails ? (
-        <LoaderContainer>
-          <Loader />
-        </LoaderContainer>
-      ) : (
-        <View>
-          {stock.logo ? (
-            <Image
-              style={styles.logo}
-              source={{
-                uri: stock.logo + "?" + API_KEY,
-              }}
-            />
-          ) : (
-            <ThemeText style={[styles.logo, styles.initials]}>
-              {stock.name.substring(0, 2)}
-            </ThemeText>
-          )}
-
-          <ThemeText style={styles.ticker}>{stock.ticker}</ThemeText>
-          <ThemeText style={styles.name}>{stock.name}</ThemeText>
-          <ThemeText style={styles.price}>{stock.aggregates?.close}</ThemeText>
-        </View>
-      )}
+      <View>
+        <Logo url={stock.logo} name={stock.name} />
+        <ThemeText style={styles.ticker}>{stock.ticker}</ThemeText>
+        <ThemeText style={styles.name}>{stock.name}</ThemeText>
+        <ThemeText style={styles.price}>{stock.aggregates?.close}</ThemeText>
+      </View>
     </Container>
   );
 }
@@ -62,17 +50,5 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 40,
-  },
-  logo: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    alignSelf: "center",
-  },
-  initials: {
-    backgroundColor: theme.colors.primary,
-    textAlign: "center",
-    textAlignVertical: "center",
-    fontSize: 20,
   },
 });

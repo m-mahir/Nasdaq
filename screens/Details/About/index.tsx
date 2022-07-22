@@ -4,7 +4,7 @@ import { theme } from "../../../constants";
 import { useAppState } from "../../../overmind";
 import { Stock } from "../../../overmind/state";
 import { ThemeText } from "../../../components/ThemeText";
-import AboutInfo from "./section";
+import Section from "./section";
 import styled from "styled-components/native";
 
 interface Props {
@@ -53,10 +53,10 @@ export default function About({ stock }: Props) {
           )}
         </TitleContainer>
         {stock?.industry && (
-          <AboutInfo title="Industry">{stock?.industry}</AboutInfo>
+          <Section title="Industry">{stock?.industry}</Section>
         )}
         {stock?.description && (
-          <AboutInfo title="Description">{stock?.description}</AboutInfo>
+          <Section title="Description">{stock?.description}</Section>
         )}
       </View>
     </Container>

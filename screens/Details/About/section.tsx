@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { ThemeText } from "../../../components/ThemeText";
 
@@ -10,7 +10,7 @@ const Container = styled.View`
   margin-top: 12;
 `
 
-const AboutInfo: React.FC<Props> = ({ title, children }) => (
+const Section: React.FC<Props> = ({ title, children }) => (
   <Container>
     <ThemeText style={styles.title}>{title}</ThemeText>
     <ThemeText style={styles.text}>{children}</ThemeText>
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AboutInfo;
+export default Section;

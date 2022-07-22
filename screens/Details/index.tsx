@@ -26,8 +26,10 @@ export default function StockDetailsScreen({
   const aggregates = stock?.aggregates;
 
   useEffect(() => {
-    loadDetails(ticker);
-    loadAggs(ticker);
+    if (ticker !== stock.ticker) {
+      loadDetails(ticker);
+      loadAggs(ticker);
+    }
   }, [ticker]);
 
   return (

@@ -59,30 +59,28 @@ export default function ExploreScreen({
     return <View>{data && data.length > 8 ? loader : null}</View>;
   };
 
+  if (loading) return <Loader />;
+
   return (
     <Container>
-      {loading ? (
-        <Loader />
-      ) : (
-        <React.Fragment>
-          <Search
-            placeholder="Search..."
-            onChange={setFilter}
-            value={filter}
-            inputRef={searchRef}
-          />
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            onEndReached={() => {
-              if (data.length >= 10 && data.length % 10 === 0)
-                loadData({ search: filter, isLoadMore: true });
-            }}
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={renderFooter}
-          />
-        </React.Fragment>
-      )}
+      <React.Fragment>
+        <Search
+          placeholder="Search..."
+          onChange={setFilter}
+          value={filter}
+          inputRef={searchRef}
+        />
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          onEndReached={() => {
+            if (data.length >= 10 && data.length % 10 === 0)
+              loadData({ search: filter, isLoadMore: true });
+          }}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={renderFooter}
+        />
+      </React.Fragment>
     </Container>
   );
 }

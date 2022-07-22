@@ -29,24 +29,25 @@ const LoaderContainer = styled.View`
 export function Statistics({ aggregates }: Props) {
   const loadingAggs = useAppState().isLoadingAggs;
 
+  if (loadingAggs)
+    return (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    );
+
   return (
     <Container>
-      {loadingAggs ? (
-        <LoaderContainer>
-          <Loader />
-        </LoaderContainer>
-      ) : (
-        <View>
-          <ThemeText style={styles.title}>Statistics</ThemeText>
-          <PricesContainer>
-            <Price title={"Open"}>{aggregates?.open}</Price>
-            <Price title={"Close"}>{aggregates?.close}</Price>
-            <Price title={"High"}>{aggregates?.high}</Price>
-            <Price title={"Low"}>{aggregates?.low}</Price>
-            <Price title={"Volume"}>{aggregates?.volume}</Price>
-          </PricesContainer>
-        </View>
-      )}
+      <View>
+        <ThemeText style={styles.title}>Statistics</ThemeText>
+        <PricesContainer>
+          <Price title={"Open"}>{aggregates?.open}</Price>
+          <Price title={"Close"}>{aggregates?.close}</Price>
+          <Price title={"High"}>{aggregates?.high}</Price>
+          <Price title={"Low"}>{aggregates?.low}</Price>
+          <Price title={"Volume"}>{aggregates?.volume}</Price>
+        </PricesContainer>
+      </View>
     </Container>
   );
 }
