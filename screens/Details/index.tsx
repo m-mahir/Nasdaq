@@ -1,13 +1,18 @@
 import { useEffect } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import { Header } from "./Header";
 import { Statistics } from "./Statistics";
 
-import { View } from "../../components/Themed";
 import { theme } from "../../constants";
 import { useActions, useAppState } from "../../overmind";
 import { RootStackScreenProps } from "../../types";
 import About from "./About";
+import styled from "styled-components/native";
+
+const StyledView = styled.View`
+  flex: 1;
+  background-color: ${theme.colors.primaryLight};
+`;
 
 export default function StockDetailsScreen({
   route,
@@ -26,19 +31,12 @@ export default function StockDetailsScreen({
   }, [ticker]);
 
   return (
-    <View style={styles.container}>
+    <StyledView>
       <Header stock={stock} />
       <ScrollView>
         <Statistics aggregates={aggregates} />
         <About stock={stock} />
       </ScrollView>
-    </View>
+    </StyledView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.primaryLight,
-  },
-});
