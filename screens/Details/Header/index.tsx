@@ -12,7 +12,6 @@ interface Props {
 
 export function Header({ stock }: Props) {
   const loadingDetails = useAppState().isLoading;
-  console.log(stock.logo);
 
   return (
     <View style={styles.container}>
