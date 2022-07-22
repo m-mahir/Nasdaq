@@ -1,3 +1,4 @@
+import axios from "axios";
 import moment from "moment";
 import { API_KEY, BASE_URL } from "../config";
 import { Aggregates, Stock } from "./state";
@@ -25,8 +26,8 @@ export const jsonPlacholder = {
             );
           fetchStockURL += "&search=" + search;
         }
-        const response = await fetch(fetchStockURL);
-        let jsonResponse = await response.json();
+        const response = await axios.get(fetchStockURL);
+        let jsonResponse = await response.data;
         if (jsonResponse.next_url) {
           fetchStockURL = jsonResponse.next_url + "&" + API_KEY;
           if (search) fetchStockURL += "&search=" + search;
