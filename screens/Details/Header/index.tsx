@@ -1,4 +1,5 @@
 import { Image, StyleSheet, View } from "react-native";
+import styled from "styled-components/native";
 import { Loader } from "../../../components/Loader";
 import { ThemeText } from "../../../components/ThemeText";
 import { API_KEY } from "../../../config";
@@ -10,15 +11,24 @@ interface Props {
   stock: Stock;
 }
 
+const Container = styled.View`
+  padding: 15px;
+  min-height: 200;
+`;
+const LoaderContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 export function Header({ stock }: Props) {
   const loadingDetails = useAppState().isLoading;
 
   return (
-    <View style={styles.container}>
+    <Container>
       {loadingDetails ? (
-        <View style={styles.loader}>
+        <LoaderContainer>
           <Loader />
-        </View>
+        </LoaderContainer>
       ) : (
         <View>
           {stock.logo ? (
@@ -39,16 +49,11 @@ export function Header({ stock }: Props) {
           <ThemeText style={styles.price}>{stock.aggregates?.close}</ThemeText>
         </View>
       )}
-    </View>
+    </Container>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-    minHeight: 200,
-  },
-  loader: { flex: 1, justifyContent: "center" },
   ticker: {
     fontSize: 30,
   },
