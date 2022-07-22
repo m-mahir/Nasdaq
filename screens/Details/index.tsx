@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { StyleSheet } from "react-native";
-import { About } from "../components/Details/About";
-import { Header } from "../components/Details/Header";
-import { Statistics } from "../components/Details/Statistics";
+import { ScrollView, StyleSheet } from "react-native";
+import { Header } from "./Header";
+import { Statistics } from "./Statistics";
 
-import { View } from "../components/Themed";
-import { theme } from "../contants";
-import { useActions, useAppState } from "../overmind";
-import { RootStackScreenProps } from "../types";
+import { View } from "../../components/Themed";
+import { theme } from "../../constants";
+import { useActions, useAppState } from "../../overmind";
+import { RootStackScreenProps } from "../../types";
+import About from "./About";
 
 export default function StockDetailsScreen({
   route,
@@ -28,8 +28,10 @@ export default function StockDetailsScreen({
   return (
     <View style={styles.container}>
       <Header stock={stock} />
-      <Statistics aggregates={aggregates} />
-      <About stock={stock} />
+      <ScrollView>
+        <Statistics aggregates={aggregates} />
+        <About stock={stock} />
+      </ScrollView>
     </View>
   );
 }
@@ -37,6 +39,6 @@ export default function StockDetailsScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.primary
+    backgroundColor: theme.colors.primaryLight,
   },
 });

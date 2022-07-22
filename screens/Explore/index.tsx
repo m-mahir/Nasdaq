@@ -5,15 +5,15 @@ import {
   ListRenderItem,
   StyleSheet,
 } from "react-native";
-import Search from "../components/Explore/Search";
-import StockListItem from "../components/Explore/StockListItem";
-import { Loader } from "../components/Loader";
+import Search from "./search";
+import StockListItem from "./stockListItem";
+import { Loader } from "../../components/Loader";
 
-import { View } from "../components/Themed";
-import { theme } from "../contants";
-import { useActions, useAppState } from "../overmind";
-import { Stock } from "../overmind/state";
-import { RootStackParamList } from "../types";
+import { View } from "../../components/Themed";
+import { theme } from "../../constants";
+import { useActions, useAppState } from "../../overmind";
+import { Stock } from "../../overmind/state";
+import { RootStackParamList } from "../../types";
 
 export default function ExploreScreen({
   navigation,

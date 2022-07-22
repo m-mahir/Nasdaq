@@ -48,7 +48,7 @@ export const jsonPlacholder = {
       return {
         name: jsonResponse.results.name,
         ticker: jsonResponse.results.ticker,
-        logo: jsonResponse.results.branding?.logo_url,
+        logo: jsonResponse.results.branding?.icon_url,
         companyWebsiteURL: jsonResponse.results.homepage_url,
         industry: jsonResponse.results.sic_description,
         description: jsonResponse.results.description,

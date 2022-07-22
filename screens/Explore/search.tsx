@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { View } from "../Themed";
-import { theme } from "../../contants";
+import { View } from "../../components/Themed";
+import { theme } from "../../constants";
 import { SearchBar } from "@rneui/themed";
 
 interface Props {

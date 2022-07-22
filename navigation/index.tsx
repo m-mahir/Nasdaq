@@ -12,11 +12,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
-import StockDetailsScreen from "../screens/StockDetailsScreen";
-import ExploreScreen from "../screens/ExploreScreen";
+import StockDetailsScreen from "../screens/Details";
+import ExploreScreen from "../screens/Explore";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import { theme } from "../contants";
+import { theme } from "../constants";
 
 export default function Navigation({
   colorScheme,

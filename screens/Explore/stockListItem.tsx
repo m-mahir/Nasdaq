@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { ThemeText } from "../ThemeText";
-import { View } from "../Themed";
-import { theme } from "../../contants";
+import { ThemeText } from "../../components/ThemeText";
+import { View } from "../../components/Themed";
+import { theme } from "../../constants";
 
 interface Props {
   stock: {
