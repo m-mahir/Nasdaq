@@ -1,10 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  FlatList,
-  ListRenderItem,
-  StyleSheet,
-} from "react-native";
+import { FlatList, ListRenderItem } from "react-native";
 import Search from "./search";
 import StockListItem from "./stockListItem";
 import { Loader } from "../../components/Loader";
@@ -14,6 +10,15 @@ import { theme } from "../../constants";
 import { useActions, useAppState } from "../../overmind";
 import { Stock } from "../../overmind/state";
 import { RootStackParamList } from "../../types";
+import styled from "styled-components/native";
+
+const Container = styled.View`
+  flex: 1;
+  padding-top: 25;
+  padding-bottom: 15;
+  justify-content: center;
+  background-color: ${theme.colors.primary};
+`;
 
 export default function ExploreScreen({
   navigation,
@@ -40,7 +45,12 @@ export default function ExploreScreen({
     navigation.navigate("StockDetails", { ticker });
 
   const renderItem: ListRenderItem<Stock> = ({ item }) => {
-    return <StockListItem stock={item} onItemClicked={()=>itemClickedHandler(item.ticker)} />;
+    return (
+      <StockListItem
+        stock={item}
+        onItemClicked={() => itemClickedHandler(item.ticker)}
+      />
+    );
   };
 
   const renderFooter = () => {
@@ -50,7 +60,7 @@ export default function ExploreScreen({
   };
 
   return (
-    <View style={styles.container}>
+    <Container>
       {loading ? (
         <Loader />
       ) : (
@@ -73,16 +83,6 @@ export default function ExploreScreen({
           />
         </React.Fragment>
       )}
-    </View>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 25,
-    paddingBottom: 15,
-    justifyContent: "center",
-    backgroundColor: theme.colors.primary,
-  },
-});
