@@ -7,6 +7,10 @@ import Navigation from "./navigation";
 import { createOvermind } from "overmind";
 import { Provider } from "overmind-react";
 import { config } from "./overmind";
+import axios from "axios";
+import { BASE_URL } from "./config";
+
+axios.defaults.baseURL = BASE_URL;
 
 const overmind = createOvermind(config);
 

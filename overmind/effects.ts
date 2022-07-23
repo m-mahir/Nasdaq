@@ -1,12 +1,10 @@
 import axios from "axios";
 import moment from "moment";
-import { API_KEY, BASE_URL } from "../config";
+import { API_KEY } from "../config";
 import { Aggregates, Stock } from "./state";
 
 const fetchStocksInitialUrl =
-  BASE_URL +
-  "/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&" +
-  API_KEY;
+  "/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&" + API_KEY;
 let fetchStockURL = fetchStocksInitialUrl;
 
 export const jsonPlacholder = {
@@ -41,7 +39,7 @@ export const jsonPlacholder = {
     return [];
   },
   getStockDetails: async (ticker: string): Promise<Stock | null> => {
-    const url = `${BASE_URL}/v3/reference/tickers/${ticker}?${API_KEY}`;
+    const url = `/v3/reference/tickers/${ticker}?${API_KEY}`;
     try {
       const response = await axios.get(url);
       let jsonResponse = await response.data;
@@ -96,7 +94,7 @@ const getStockAggsURL = (ticker: string, daysDiff: number): string => {
     new Date().setDate(new Date().getDate() - daysDiff)
   );
   const date = moment(previousDayDate).format("yyyy-MM-DD");
-  return `${BASE_URL}/v2/aggs/ticker/${ticker}/range/1/day/${date}/${date}?adjusted=true&sort=asc&limit=120&${API_KEY}`;
+  return `/v2/aggs/ticker/${ticker}/range/1/day/${date}/${date}?adjusted=true&sort=asc&limit=120&${API_KEY}`;
 };
 
 const callGetRequest = async (url: string) => {
