@@ -8,9 +8,10 @@ import { createOvermind } from "overmind";
 import { Provider } from "overmind-react";
 import { config } from "./overmind";
 import axios from "axios";
-import { BASE_URL } from "./config";
+import { API_KEY, BASE_URL } from "./config";
 
 axios.defaults.baseURL = BASE_URL;
+axios.defaults.params = {apiKey : API_KEY}
 
 const overmind = createOvermind(config);
 
