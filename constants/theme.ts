@@ -4,5 +4,6 @@ export default {
     secondary: "white",
     primaryLight: "#53aefc",
     primaryDark: "#1792fb",
+    error: "#ED213A"
   },
 };

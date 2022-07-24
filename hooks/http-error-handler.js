@@ -1,29 +1,30 @@
-import { useState, useEffect } from 'react';
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-export default httpClient => {
-    const [error, setError] = useState(null);
+export default () => {
+  const [error, setError] = useState(null);
 
-    const reqInterceptor = httpClient.interceptors.request.use(req => {
-      setError(null);
-      return req;
-    });
-    const resInterceptor = httpClient.interceptors.response.use(
-      res => res,
-      err => {
-        setError(err);
-      }
-    );
+  const reqInterceptor = axios.interceptors.request.use((req) => {
+    setError(null);
+    return req;
+  });
+  const resInterceptor = axios.interceptors.response.use(
+    (res) => res,
+    (err) => {
+      setError(err.response.data.error);
+    }
+  );
 
-    useEffect(() => {
-      return () => {
-        httpClient.interceptors.request.eject(reqInterceptor);
-        httpClient.interceptors.response.eject(resInterceptor);
-      };
-    }, [reqInterceptor, resInterceptor]);
-
-    const errorConfirmedHandler = () => {
-      setError(null);
+  useEffect(() => {
+    return () => {
+      axios.interceptors.request.eject(reqInterceptor);
+      axios.interceptors.response.eject(resInterceptor);
     };
+  }, [reqInterceptor, resInterceptor]);
 
-    return [error, errorConfirmedHandler];
-}
+  const errorConfirmedHandler = () => {
+    setError(null);
+  };
+
+  return [error, errorConfirmedHandler];
+};

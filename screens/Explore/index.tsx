@@ -11,6 +11,7 @@ import { useActions, useAppState } from "../../overmind";
 import { Stock } from "../../overmind/state";
 import { RootStackParamList } from "../../types";
 import styled from "styled-components/native";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 const Container = styled.View`
   flex: 1;
@@ -20,9 +21,9 @@ const Container = styled.View`
   background-color: ${theme.colors.primary};
 `;
 
-export default function ExploreScreen({
+const ExploreScreen: React.FC<NativeStackScreenProps<RootStackParamList, "Root", "Modal">> = ({
   navigation,
-}: NativeStackScreenProps<RootStackParamList, "Root", "Modal">) {
+}) => {
   const loading = useAppState().isLoading;
   const data = useAppState().stocks;
   const loadData = useActions().loadStocks;
@@ -84,3 +85,5 @@ export default function ExploreScreen({
     </Container>
   );
 }
+
+export default withErrorHandler(ExploreScreen);

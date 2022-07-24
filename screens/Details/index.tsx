@@ -8,15 +8,15 @@ import { useActions, useAppState } from "../../overmind";
 import { RootStackScreenProps } from "../../types";
 import About from "./About";
 import styled from "styled-components/native";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import axios from "axios";
 
 const StyledView = styled.View`
   flex: 1;
   background-color: ${theme.colors.primaryLight};
 `;
 
-export default function StockDetailsScreen({
-  route,
-}: RootStackScreenProps<"StockDetails">) {
+function StockDetailsScreen({ route }: RootStackScreenProps<"StockDetails">) {
   const ticker = route.params.ticker;
 
   const stock = useAppState().currentStock;
@@ -42,3 +42,5 @@ export default function StockDetailsScreen({
     </StyledView>
   );
 }
+
+export default withErrorHandler(StockDetailsScreen);
