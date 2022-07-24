@@ -60,14 +60,18 @@ export const jsonPlacholder = {
   },
 
   getStockAggs: async (ticker: string): Promise<Aggregates | null> => {
-    let url = getStockAggsURL(ticker, 1);
+    let dayDiff = 0,
+      url,
+      jsonResponse;
     try {
-      let jsonResponse = await callGetRequest(url);
-
-      if (jsonResponse.status === "DELAYED") {
-        url = getStockAggsURL(ticker, 2);
+      do {
+        url = getStockAggsURL(ticker, ++dayDiff);
         jsonResponse = await callGetRequest(url);
-      }
+      } while (
+        jsonResponse.status === "DELAYED" ||
+        (jsonResponse.status === "OK" && !jsonResponse.results)
+      );
+
       if (
         jsonResponse.status === "OK" &&
         jsonResponse.results &&
