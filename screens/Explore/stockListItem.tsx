@@ -15,7 +15,8 @@ interface Props {
 const TouchableItem = styled.TouchableOpacity`
   width: 100%;
   background-color: ${theme.colors.primary};
-  padding-horizontal: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
   padding-top: 22px;
 `;
 
