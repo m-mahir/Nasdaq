@@ -14,7 +14,7 @@ const Logo: React.FC<Props> = ({ url, name }) => {
       <Image
         style={styles.logo}
         source={{
-          uri: url + "?" + API_KEY,
+          uri: url + "?apiKey=" + API_KEY,
         }}
       />
     );
