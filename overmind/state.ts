@@ -21,12 +21,14 @@ export type State = {
   isLoadingAggs: boolean;
   stocks: Stock[];
   currentStock: Stock;
+  stockDetailsHistory: Stock[];
 };
 
 export const state: State = {
   isLoading: false,
   isLoadingAggs: false,
   stocks: [],
+  stockDetailsHistory: [],
   currentStock: {
     ticker: '',
     name: '',
