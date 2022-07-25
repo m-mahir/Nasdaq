@@ -9,7 +9,6 @@ import { RootStackScreenProps } from "../../types";
 import About from "./About";
 import styled from "styled-components/native";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import axios from "axios";
 
 const StyledView = styled.View`
   flex: 1;
