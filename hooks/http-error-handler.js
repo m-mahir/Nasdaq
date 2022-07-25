@@ -11,7 +11,7 @@ export default () => {
   const resInterceptor = axios.interceptors.response.use(
     (res) => res,
     (err) => {
-      setError(err.response.data.error);
+      setError(err.response?.data?.error);
     }
   );
 
