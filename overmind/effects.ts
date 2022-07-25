@@ -24,12 +24,13 @@ export const jsonPlacholder = {
           fetchStockURL += "&search=" + search;
         }
         const response = await axios.get(fetchStockURL);
-        let jsonResponse = await response.data;
-        if (jsonResponse.next_url) {
+        let jsonResponse = await response?.data;
+        if (jsonResponse && jsonResponse.next_url) {
           fetchStockURL = jsonResponse.next_url;
           if (search) fetchStockURL += "&search=" + search;
         }
-        if (jsonResponse.status === "OK") return jsonResponse.results;
+        if (jsonResponse && jsonResponse.status === "OK")
+          return jsonResponse.results;
       }
     } catch (err) {
       console.log(err);
@@ -41,9 +42,9 @@ export const jsonPlacholder = {
     const url = `/v3/reference/tickers/${ticker}`;
     try {
       const response = await axios.get(url);
-      let jsonResponse = await response.data;
+      let jsonResponse = await response?.data;
 
-      if (jsonResponse.status === "OK")
+      if (jsonResponse && jsonResponse.status === "OK")
         return {
           name: jsonResponse.results.name,
           ticker: jsonResponse.results.ticker,
@@ -68,11 +69,13 @@ export const jsonPlacholder = {
         url = getStockAggsURL(ticker, ++dayDiff);
         jsonResponse = await callGetRequest(url);
       } while (
-        jsonResponse.status === "DELAYED" ||
-        (jsonResponse.status === "OK" && !jsonResponse.results)
+        jsonResponse &&
+        (jsonResponse.status === "DELAYED" ||
+          (jsonResponse.status === "OK" && !jsonResponse.results))
       );
 
       if (
+        jsonResponse &&
         jsonResponse.status === "OK" &&
         jsonResponse.results &&
         jsonResponse.results.length
@@ -102,5 +105,5 @@ const getStockAggsURL = (ticker: string, daysDiff: number): string => {
 
 const callGetRequest = async (url: string) => {
   const response = await axios.get(url);
-  return response.data;
+  return response?.data;
 };
