@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { Header } from "./Header";
 import { Statistics } from "./Statistics";
@@ -18,16 +18,27 @@ const StyledView = styled.View`
 function StockDetailsScreen({ route }: RootStackScreenProps<"StockDetails">) {
   const ticker = route.params.ticker;
 
-  const stock = useAppState().currentStock;
+  let s = useAppState().currentStock;
+  const [stock, setStock] = useState(s);
+  const stockHistory = useAppState().stockDetailsHistory;
   const loadDetails = useActions().loadStockDetails;
   const loadAggs = useActions().loadStockAggs;
 
   const aggregates = stock?.aggregates;
 
   useEffect(() => {
+    setStock(s);
+  }, [s]);
+
+  useEffect(() => {
     if (ticker !== stock.ticker) {
-      loadDetails(ticker);
-      loadAggs(ticker);
+      let historyStock = stockHistory.find((s) => s.ticker === ticker);
+      if (historyStock) {
+        setStock(historyStock);
+      } else {
+        loadDetails(ticker);
+        loadAggs(ticker);
+      }
     }
   }, [ticker]);
 
