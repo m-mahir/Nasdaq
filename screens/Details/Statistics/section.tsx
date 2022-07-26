@@ -11,7 +11,7 @@ const StyledView = styled.View`
   margin-top: 12px;
 `;
 
-const Price: React.FC<Props> = ({ title, children }) => (
+const Section: React.FC<Props> = ({ title, children }) => (
   <StyledView>
     <ThemeText style={styles.title}>{title}</ThemeText>
     <ThemeText style={styles.price}>{children}</ThemeText>
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Price;
+export default Section;

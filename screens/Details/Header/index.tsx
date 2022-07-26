@@ -22,23 +22,24 @@ const LoaderContainer = styled.View`
 export function Header({ stock }: Props) {
   const loadingDetails = useAppState().isLoading;
 
+  let body;
   if (loadingDetails)
-    return (
+    body = (
       <LoaderContainer>
         <Loader />
       </LoaderContainer>
     );
-
-  return (
-    <Container>
+  else
+    body = (
       <View>
         <Logo url={stock.logo} name={stock.name} />
         <ThemeText style={styles.ticker}>{stock.ticker}</ThemeText>
         <ThemeText style={styles.name}>{stock.name}</ThemeText>
-        <ThemeText style={styles.price}>{stock.aggregates?.close}</ThemeText>
+        <ThemeText style={styles.price}>${stock.aggregates?.close}</ThemeText>
       </View>
-    </Container>
-  );
+    );
+
+  return <Container>{body}</Container>;
 }
 
 const styles = StyleSheet.create({

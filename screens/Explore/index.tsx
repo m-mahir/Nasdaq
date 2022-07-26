@@ -60,11 +60,11 @@ const ExploreScreen: React.FC<
     return <View>{data && data.length > 8 ? loader : null}</View>;
   };
 
-  if (loading) return <Loader />;
-
-  return (
-    <Container>
-      <React.Fragment>
+  let body;
+  if (loading) body = <Loader />;
+  else
+    body = (
+      <>
         <Search
           placeholder="Search..."
           onChange={setFilter}
@@ -81,9 +81,10 @@ const ExploreScreen: React.FC<
           onEndReachedThreshold={0.1}
           ListFooterComponent={renderFooter}
         />
-      </React.Fragment>
-    </Container>
-  );
+      </>
+    );
+
+  return <Container>{body}</Container>;
 };
 
 export default withErrorHandler(ExploreScreen);

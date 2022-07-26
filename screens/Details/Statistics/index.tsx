@@ -5,7 +5,7 @@ import { ThemeText } from "../../../components/ThemeText";
 import { theme } from "../../../constants";
 import { useAppState } from "../../../overmind";
 import { Aggregates } from "../../../overmind/state";
-import Price from "./price";
+import Section from "./section";
 
 interface Props {
   aggregates?: Aggregates;
@@ -29,34 +29,43 @@ const LoaderContainer = styled.View`
 export function Statistics({ aggregates }: Props) {
   const loadingAggs = useAppState().isLoadingAggs;
 
-  if (loadingAggs)
-    return (
+  const getStatisticsBody = () => {
+    if (aggregates?.open)
+      return (
+        <PricesContainer>
+          <Section title={"Open"}>${aggregates?.open}</Section>
+          <Section title={"Close"}>${aggregates?.close}</Section>
+          <Section title={"Volume"}>{aggregates?.volume}</Section>
+          <Section title={"High"}>${aggregates?.high}</Section>
+          <Section title={"Low"}>${aggregates?.low}</Section>
+        </PricesContainer>
+      );
+    else
+      return (
+        <ThemeText style={styles.text}>
+          No data avaiable for yesterday
+        </ThemeText>
+      );
+  };
+
+  let prices, body;
+  if (loadingAggs) {
+    body = (
       <LoaderContainer>
         <Loader />
       </LoaderContainer>
     );
-
-  let body;
-  if (aggregates?.open)
+  } else {
+    prices = getStatisticsBody();
     body = (
-      <PricesContainer>
-        <Price title={"Open"}>{aggregates?.open}</Price>
-        <Price title={"Close"}>{aggregates?.close}</Price>
-        <Price title={"High"}>{aggregates?.high}</Price>
-        <Price title={"Low"}>{aggregates?.low}</Price>
-        <Price title={"Volume"}>{aggregates?.volume}</Price>
-      </PricesContainer>
-    );
-  else body = <ThemeText style={styles.text}>No data avaiable for yesterday</ThemeText>;
-
-  return (
-    <Container>
       <View>
         <ThemeText style={styles.title}>Statistics</ThemeText>
-        {body}
+        {prices}
       </View>
-    </Container>
-  );
+    );
+  }
+
+  return <Container>{body}</Container>;
 }
 
 const styles = StyleSheet.create({
@@ -66,7 +75,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 50,
-  }
+  },
 });
