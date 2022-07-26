@@ -1,6 +1,6 @@
 import { Image, StyleSheet, View } from "react-native";
 import styled from "styled-components/native";
-import { Loader } from "../../../components/Loader";
+import Loader from "../../../components/Loader";
 import { ThemeText } from "../../../components/ThemeText";
 import { useAppState } from "../../../overmind";
 import { Stock } from "../../../overmind/state";

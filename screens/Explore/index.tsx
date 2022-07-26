@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FlatList, ListRenderItem } from "react-native";
 import Search from "./search";
 import StockListItem from "./stockListItem";
-import { Loader } from "../../components/Loader";
+import Loader from "../../components/Loader";
 
 import { View } from "../../components/Themed";
 import { theme } from "../../constants";
@@ -21,9 +21,9 @@ const Container = styled.View`
   background-color: ${theme.colors.primary};
 `;
 
-const ExploreScreen: React.FC<NativeStackScreenProps<RootStackParamList, "Root", "Modal">> = ({
-  navigation,
-}) => {
+const ExploreScreen: React.FC<
+  NativeStackScreenProps<RootStackParamList, "Root", "Modal">
+> = ({ navigation }) => {
   const loading = useAppState().isLoading;
   const data = useAppState().stocks;
   const loadData = useActions().loadStocks;
@@ -84,6 +84,6 @@ const ExploreScreen: React.FC<NativeStackScreenProps<RootStackParamList, "Root",
       </React.Fragment>
     </Container>
   );
-}
+};
 
 export default withErrorHandler(ExploreScreen);

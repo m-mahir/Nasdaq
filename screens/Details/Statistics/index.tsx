@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import styled from "styled-components/native";
-import { Loader } from "../../../components/Loader";
+import Loader from "../../../components/Loader";
 import { ThemeText } from "../../../components/ThemeText";
 import { theme } from "../../../constants";
 import { useAppState } from "../../../overmind";
@@ -36,17 +36,24 @@ export function Statistics({ aggregates }: Props) {
       </LoaderContainer>
     );
 
+  let body;
+  if (aggregates?.open)
+    body = (
+      <PricesContainer>
+        <Price title={"Open"}>{aggregates?.open}</Price>
+        <Price title={"Close"}>{aggregates?.close}</Price>
+        <Price title={"High"}>{aggregates?.high}</Price>
+        <Price title={"Low"}>{aggregates?.low}</Price>
+        <Price title={"Volume"}>{aggregates?.volume}</Price>
+      </PricesContainer>
+    );
+  else body = <ThemeText style={styles.text}>No data avaiable for yesterday</ThemeText>;
+
   return (
     <Container>
       <View>
         <ThemeText style={styles.title}>Statistics</ThemeText>
-        <PricesContainer>
-          <Price title={"Open"}>{aggregates?.open}</Price>
-          <Price title={"Close"}>{aggregates?.close}</Price>
-          <Price title={"High"}>{aggregates?.high}</Price>
-          <Price title={"Low"}>{aggregates?.low}</Price>
-          <Price title={"Volume"}>{aggregates?.volume}</Price>
-        </PricesContainer>
+        {body}
       </View>
     </Container>
   );
@@ -57,4 +64,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
   },
+  text: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 50,
+  }
 });
