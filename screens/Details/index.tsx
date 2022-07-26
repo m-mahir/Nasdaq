@@ -18,8 +18,8 @@ const StyledView = styled.View`
 function StockDetailsScreen({ route }: RootStackScreenProps<"StockDetails">) {
   const ticker = route.params.ticker;
 
-  let s = useAppState().currentStock;
-  const [stock, setStock] = useState(s);
+  let currentStock = useAppState().currentStock;
+  const [stock, setStock] = useState(currentStock);
   const stockHistory = useAppState().stockDetailsHistory;
   const loadDetails = useActions().loadStockDetails;
   const loadAggs = useActions().loadStockAggs;
@@ -27,8 +27,8 @@ function StockDetailsScreen({ route }: RootStackScreenProps<"StockDetails">) {
   const aggregates = stock?.aggregates;
 
   useEffect(() => {
-    setStock(s);
-  }, [s]);
+    setStock(currentStock);
+  }, [currentStock]);
 
   useEffect(() => {
     if (ticker !== stock.ticker) {
