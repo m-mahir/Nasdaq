@@ -61,18 +61,24 @@ export const jsonPlacholder = {
   },
 
   getStockAggs: async (ticker: string): Promise<Aggregates | null> => {
-    let dayDiff = 0,
-      url,
-      jsonResponse;
+    // Handles the case where the previous days where weekends or holidays.
+    // Commented as it calls to many request, while the availbe requests number is limited.
+
+    // let dayDiff = 0,
+    //   url,
+    //   jsonResponse;
+    // try {
+    //   do {
+    //     url = getStockAggsURL(ticker, ++dayDiff);
+    //     jsonResponse = await callGetRequest(url);
+    //   } while (
+    //     jsonResponse &&
+    //     (jsonResponse.status === "DELAYED" ||
+    //       (jsonResponse.status === "OK" && !jsonResponse.results))
+    //   );
     try {
-      do {
-        url = getStockAggsURL(ticker, ++dayDiff);
-        jsonResponse = await callGetRequest(url);
-      } while (
-        jsonResponse &&
-        (jsonResponse.status === "DELAYED" ||
-          (jsonResponse.status === "OK" && !jsonResponse.results))
-      );
+      const url = getStockAggsURL(ticker, 1);
+      const jsonResponse = await callGetRequest(url);
 
       if (
         jsonResponse &&
