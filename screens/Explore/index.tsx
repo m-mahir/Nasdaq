@@ -32,7 +32,7 @@ const ExploreScreen: React.FC<
   const searchRef = useRef<any>();
 
   useEffect(() => {
-    let timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     if (filter?.length) {
       timeout = setTimeout(() => {
@@ -40,6 +40,9 @@ const ExploreScreen: React.FC<
           loadData({ search: filter });
       }, 500);
     } else loadData();
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
   }, [filter, searchRef]);
 
   const itemClickedHandler = (ticker: string) =>
