@@ -15,8 +15,7 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 const Container = styled.View`
   flex: 1;
-  padding-top: 25px;
-  padding-bottom: 15px;
+  padding: 25px 0px;
   justify-content: center;
   background-color: ${theme.colors.primary};
 `;

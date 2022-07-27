@@ -18,7 +18,7 @@ const Container = styled.View`
 `;
 const PricesContainer = styled.View`
   flex-direction: row;
-  margin-vertical: 5px;
+  margin-top: 5px;
   flex-wrap: wrap;
 `;
 const LoaderContainer = styled.View`

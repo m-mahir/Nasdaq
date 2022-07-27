@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { theme } from "../../constants";
 import { SearchBar } from "@rneui/themed";
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 interface Props {
   placeholder: string;
@@ -12,12 +12,15 @@ interface Props {
 
 const StyledView = styled.View`
   background-color: ${theme.colors.primaryDark};
-  padding-vertical: 15px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 15px;
 `;
 
-export default function Search({ placeholder, onChange, value, inputRef }: Props) {
+export default function Search({
+  placeholder,
+  onChange,
+  value,
+  inputRef,
+}: Props) {
   return (
     <StyledView>
       <SearchBar
@@ -46,7 +49,6 @@ const styles = StyleSheet.create({
   },
   inputContainerStyle: {
     backgroundColor: theme.colors.primaryLight,
-    paddingVertical: 0,
     borderRadius: 12,
     alignItems: "center",
   },

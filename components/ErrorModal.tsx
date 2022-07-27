@@ -55,9 +55,7 @@ const MessageText = styled.Text`
 
 const ModalButton = styled.Pressable`
   border-radius: 20px;
-  padding: 10px;
-  padding-left: 35px;
-  padding-right: 35px;
+  padding: 10px 35px;
   elevation: 2;
   background-color: ${theme.colors.primaryDark};
 `;
