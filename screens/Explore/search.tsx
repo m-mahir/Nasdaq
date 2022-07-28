@@ -12,7 +12,7 @@ interface Props {
 
 const StyledView = styled.View`
   background-color: ${theme.colors.primaryDark};
-  padding: 15px;
+  padding: 10px 15px;
 `;
 
 export default function Search({
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primaryDark,
     borderTopWidth: 0,
     borderBottomWidth: 0,
+    marginTop: 25,
   },
   inputContainerStyle: {
     backgroundColor: theme.colors.primaryLight,

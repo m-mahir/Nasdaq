@@ -9,6 +9,8 @@ import { Provider } from "overmind-react";
 import { config } from "./overmind";
 import axios from "axios";
 import { API_KEY, BASE_URL } from "./config";
+import { StatusBar } from "expo-status-bar";
+import { theme } from "./constants";
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.params = {apiKey : API_KEY}
@@ -25,6 +27,7 @@ export default function App() {
     return (
       <Provider value={overmind}>
         <SafeAreaProvider>
+          <StatusBar backgroundColor={theme.colors.primary }/>
           <Navigation colorScheme={colorScheme} />
         </SafeAreaProvider>
       </Provider>
