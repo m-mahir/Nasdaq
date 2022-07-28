@@ -1,5 +1,5 @@
 import useHttpErrorHandler from "../../hooks/http-error-handler";
-import ErrorModal from '../../components/ErrorModal';
+import ErrorModal from "../../components/ErrorModal";
 
 interface Props {
   children?: React.ReactNode;
@@ -17,8 +17,11 @@ export default function withErrorHandler<Props>(
 
     return (
       <>
-        <ErrorModal closeHandler={closeHandler}>{error}</ErrorModal>
-        <WrappedComponent {...props} />
+        {error ? (
+          <ErrorModal closeHandler={closeHandler}>{error}</ErrorModal>
+        ) : (
+          <WrappedComponent {...props} />
+        )}
       </>
     );
   };
