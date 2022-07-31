@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, screen, waitFor } from "@testing-library/react-native";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react-native";
 import Explore from "../index";
 import { createOvermind } from "overmind";
 import { Provider } from "overmind-react";
@@ -10,7 +10,7 @@ let MockExplore: React.FC;
 
 describe("Explore Screen", () => {
   beforeAll(() => {
-    jest.mock("../../../__mocks__/axios");
+    jest.mock("../__mocks__/axios");
 
     const createTestProps = (props: Object) => ({
       navigation: {
@@ -18,7 +18,7 @@ describe("Explore Screen", () => {
       },
       ...props,
     });
-  
+
     MockExplore = () => {
       let props: any;
       props = createTestProps({});
@@ -31,6 +31,8 @@ describe("Explore Screen", () => {
         </Provider>
       );
     };
+
+    afterEach(cleanup);
   });
 
   it("should render loader on the screen when the explore screen launches", () => {
@@ -40,11 +42,9 @@ describe("Explore Screen", () => {
     expect(loader).toBeDefined();
   });
 
-  it("should renders the stocks data", async () => {
-    const { getByTestId, debug } = render(<MockExplore />);
-    await waitFor(() => {
-      const item = getByTestId("item");
-      expect(item).toBeDefined();
-    });
+  it("should renders the stocks data", () => {
+    const { findByTestId, debug } = render(<MockExplore />);
+    const item = findByTestId("item");
+    expect(item).toBeDefined();
   });
 });
