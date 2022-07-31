@@ -12,6 +12,7 @@ import { Stock } from "../../overmind/state";
 import { RootStackParamList } from "../../types";
 import styled from "styled-components/native";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import NoData from "./noData";
 
 const Container = styled.View`
   flex: 1;
@@ -61,29 +62,43 @@ const ExploreScreen: React.FC<
     return <View>{data && data.length > 8 ? loader : null}</View>;
   };
 
-  let body;
+  let body, search;
   if (loading) body = <Loader />;
-  else
-    body = (
-      <>
-        <Search
-          placeholder="Search..."
-          onChange={setFilter}
-          value={filter}
-          inputRef={searchRef}
-        />
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          onEndReached={() => {
-            if (data.length >= 10 && data.length % 10 === 0)
-              loadData({ search: filter, isLoadMore: true });
-          }}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={renderFooter}
-        />
-      </>
+  else {
+    search = (
+      <Search
+        placeholder="Search..."
+        onChange={setFilter}
+        value={filter}
+        inputRef={searchRef}
+      />
     );
+    if (filter && !data.length)
+      body = (
+        <>
+          {search}
+          <Container>
+            <NoData />
+          </Container>
+        </>
+      );
+    else
+      body = (
+        <>
+          {search}
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            onEndReached={() => {
+              if (data.length >= 10 && data.length % 10 === 0)
+                loadData({ search: filter, isLoadMore: true });
+            }}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={renderFooter}
+          />
+        </>
+      );
+  }
 
   return <Container>{body}</Container>;
 };

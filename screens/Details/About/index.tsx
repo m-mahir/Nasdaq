@@ -72,5 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.secondary,
     borderRadius: 8,
   },
-  buttonTitle: { color: theme.colors.primaryDark },
+  buttonTitle: {
+    color: theme.colors.primaryDark,
+  },
 });
