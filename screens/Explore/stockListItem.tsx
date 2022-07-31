@@ -10,6 +10,7 @@ interface Props {
     name: string;
   };
   onItemClicked: () => void;
+  testID: string;
 }
 
 const TouchableItem = styled.TouchableOpacity`
@@ -18,9 +19,10 @@ const TouchableItem = styled.TouchableOpacity`
   padding: 15px 25px;
 `;
 
-export default function StockListItem({ stock, onItemClicked }: Props) {
+export default function StockListItem(props: Props) {
+  const { stock, onItemClicked, testID } = props;
   return (
-    <TouchableItem onPress={onItemClicked}>
+    <TouchableItem testID={testID} onPress={onItemClicked}>
       <ThemeText style={styles.title}>{stock.ticker}</ThemeText>
       <ThemeText>{stock.name}</ThemeText>
       <View

@@ -36,6 +36,7 @@ export default function Search({
         placeholderTextColor={theme.colors.secondary}
         clearIcon={{ size: 22, color: theme.colors.secondary }}
         searchIcon={{ size: 22, color: theme.colors.secondary }}
+        testID="search"
       />
     </StyledView>
   );

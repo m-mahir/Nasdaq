@@ -52,6 +52,7 @@ const ExploreScreen: React.FC<
       <StockListItem
         stock={item}
         onItemClicked={() => itemClickedHandler(item.ticker)}
+        testID="item"
       />
     );
   };
