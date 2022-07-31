@@ -1,7 +1,7 @@
 import { Icon } from "@rneui/base";
 import { Modal, StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { ThemeText } from "../components/ThemeText";
+import { ThemeText } from "./ThemeText";
 import { theme } from "../constants";
 
 interface Props {

@@ -1,18 +1,18 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
 import { FlatList, ListRenderItem } from "react-native";
-import Search from "./search";
-import StockListItem from "./stockListItem";
+import Search from "./Search";
+import StockListItem from "./StockListItem";
 import Loader from "../../components/Loader";
 
 import { View } from "../../components/Themed";
 import { theme } from "../../constants";
 import { useActions, useAppState } from "../../overmind";
 import { Stock } from "../../overmind/state";
-import { RootStackParamList } from "../../types";
+import { RootStackParamList } from "../../../types";
 import styled from "styled-components/native";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import NoData from "./noData";
+import NoData from "./NoData";
 
 const Container = styled.View`
   flex: 1;

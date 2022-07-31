@@ -1,6 +1,6 @@
 import React from "react";
 import { act, cleanup, render, screen, waitFor } from "@testing-library/react-native";
-import Explore from "../index";
+import Explore from "..";
 import { createOvermind } from "overmind";
 import { Provider } from "overmind-react";
 import { config } from "../../../overmind";

@@ -5,7 +5,7 @@ import { ThemeText } from "../../../components/ThemeText";
 import { theme } from "../../../constants";
 import { useAppState } from "../../../overmind";
 import { Aggregates } from "../../../overmind/state";
-import Section from "./section";
+import Section from "./Section";
 
 interface Props {
   aggregates?: Aggregates;

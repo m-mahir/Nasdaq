@@ -4,7 +4,7 @@ import Loader from "../../../components/Loader";
 import { ThemeText } from "../../../components/ThemeText";
 import { useAppState } from "../../../overmind";
 import { Stock } from "../../../overmind/state";
-import Logo from "./logo";
+import Logo from "./Logo";
 
 interface Props {
   stock: Stock;

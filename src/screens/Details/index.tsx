@@ -5,7 +5,7 @@ import { Statistics } from "./Statistics";
 
 import { theme } from "../../constants";
 import { useActions, useAppState } from "../../overmind";
-import { RootStackScreenProps } from "../../types";
+import { RootStackScreenProps } from "../../../types";
 import About from "./About";
 import styled from "styled-components/native";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";

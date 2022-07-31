@@ -14,7 +14,7 @@ import { ColorSchemeName } from "react-native";
 
 import StockDetailsScreen from "../screens/Details";
 import ExploreScreen from "../screens/Explore";
-import { RootStackParamList } from "../types";
+import { RootStackParamList } from "../../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { theme } from "../constants";
 

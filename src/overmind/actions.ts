@@ -1,4 +1,4 @@
-import { Context } from "./";
+import { Context } from ".";
 import { Stock } from "./state";
 
 interface loadStocksPayload {
