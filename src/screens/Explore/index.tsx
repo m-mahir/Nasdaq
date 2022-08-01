@@ -33,11 +33,14 @@ const ExploreScreen: React.FC<
   const stockList = useAppState().stocks;
   const loadData = useActions().loadStocks;
 
+  const [isLoadMore, setIsLoadMore] = useState(false);
   const [filter, setFilter] = useState("");
   const searchRef = useRef<any>();
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
+
+    setIsLoadMore(false);
 
     if (filter?.length) {
       timeout = setTimeout(() => {
@@ -48,7 +51,7 @@ const ExploreScreen: React.FC<
     return () => {
       if (timeout) clearTimeout(timeout);
     };
-  }, [filter, searchRef]);
+  }, [filter]);
 
   const itemClickedHandler = (ticker: string) =>
     navigation.navigate("StockDetails", { ticker });
@@ -63,13 +66,16 @@ const ExploreScreen: React.FC<
   };
 
   const Footer = (
-    <FooterContainer>
-      {stockList && stockList.length >= 10 && loading ? <Loader /> : null}
-    </FooterContainer>
+    <>
+      <Separator />
+      <FooterContainer>
+        {stockList && stockList.length >= 10 && loading ? <Loader /> : null}
+      </FooterContainer>
+    </>
   );
 
   let body, search;
-  if (loading && !stockList.length) body = <Loader />;
+  if (loading && !isLoadMore) body = <Loader />;
   else {
     search = (
       <Search
@@ -96,8 +102,10 @@ const ExploreScreen: React.FC<
             data={stockList}
             renderItem={renderItem}
             onEndReached={() => {
-              if (stockList.length >= 10 && stockList.length % 10 === 0)
+              if (stockList.length >= 10 && stockList.length % 10 === 0) {
                 loadData({ search: filter, isLoadMore: true });
+                setIsLoadMore(true);
+              }
             }}
             ListFooterComponent={Footer}
             ItemSeparatorComponent={Separator}
