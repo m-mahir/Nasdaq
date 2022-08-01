@@ -5,7 +5,6 @@ import Search from "./Search";
 import StockListItem from "./StockListItem";
 import Loader from "../../components/Loader";
 
-import { View } from "../../components/Themed";
 import { theme } from "../../constants";
 import { useActions, useAppState } from "../../overmind";
 import { Stock } from "../../overmind/state";
@@ -19,6 +18,11 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   background-color: ${theme.colors.primary};
+`;
+
+const FooterContainer = styled.View`
+  background-color: ${theme.colors.primary};
+  padding-vertical: 35px;
 `;
 
 const ExploreScreen: React.FC<
@@ -57,11 +61,11 @@ const ExploreScreen: React.FC<
     );
   };
 
-  const renderFooter = () => {
-    let loader = null;
-    loader = <Loader />;
-    return <View>{data && data.length > 8 ? loader : null}</View>;
-  };
+  const Footer = (
+    <FooterContainer>
+      {data && data.length >= 10 ? <Loader /> : null}
+    </FooterContainer>
+  );
 
   let body, search;
   if (loading) body = <Loader />;
@@ -94,8 +98,7 @@ const ExploreScreen: React.FC<
               if (data.length >= 10 && data.length % 10 === 0)
                 loadData({ search: filter, isLoadMore: true });
             }}
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={renderFooter}
+            ListFooterComponent={Footer}
             ItemSeparatorComponent={Separator}
             testID="list"
           />
