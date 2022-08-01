@@ -22,14 +22,15 @@ const Container = styled.View`
 
 const FooterContainer = styled.View`
   background-color: ${theme.colors.primary};
-  padding-vertical: 35px;
+  padding-top: 35px;
+  padding-bottom: 45px;
 `;
 
 const ExploreScreen: React.FC<
   NativeStackScreenProps<RootStackParamList, "Root", "Modal">
 > = ({ navigation }) => {
   const loading = useAppState().isLoading;
-  const data = useAppState().stocks;
+  const stockList = useAppState().stocks;
   const loadData = useActions().loadStocks;
 
   const [filter, setFilter] = useState("");
@@ -63,12 +64,12 @@ const ExploreScreen: React.FC<
 
   const Footer = (
     <FooterContainer>
-      {data && data.length >= 10 ? <Loader /> : null}
+      {stockList && stockList.length >= 10 && loading ? <Loader /> : null}
     </FooterContainer>
   );
 
   let body, search;
-  if (loading) body = <Loader />;
+  if (loading && !stockList.length) body = <Loader />;
   else {
     search = (
       <Search
@@ -78,7 +79,7 @@ const ExploreScreen: React.FC<
         inputRef={searchRef}
       />
     );
-    if (filter && !data.length)
+    if (filter && !stockList.length)
       body = (
         <>
           {search}
@@ -92,10 +93,10 @@ const ExploreScreen: React.FC<
         <>
           {search}
           <FlatList
-            data={data}
+            data={stockList}
             renderItem={renderItem}
             onEndReached={() => {
-              if (data.length >= 10 && data.length % 10 === 0)
+              if (stockList.length >= 10 && stockList.length % 10 === 0)
                 loadData({ search: filter, isLoadMore: true });
             }}
             ListFooterComponent={Footer}
