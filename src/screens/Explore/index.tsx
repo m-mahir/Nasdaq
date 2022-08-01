@@ -52,7 +52,6 @@ const ExploreScreen: React.FC<
       <StockListItem
         stock={item}
         onItemClicked={() => itemClickedHandler(item.ticker)}
-        testID="item"
       />
     );
   };
@@ -96,6 +95,7 @@ const ExploreScreen: React.FC<
             }}
             onEndReachedThreshold={0.1}
             ListFooterComponent={renderFooter}
+            testID="list"
           />
         </>
       );
