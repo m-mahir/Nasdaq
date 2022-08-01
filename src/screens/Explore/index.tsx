@@ -13,6 +13,7 @@ import { RootStackParamList } from "../../../types";
 import styled from "styled-components/native";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import NoData from "./NoData";
+import Separator from "./Separator";
 
 const Container = styled.View`
   flex: 1;
@@ -95,6 +96,7 @@ const ExploreScreen: React.FC<
             }}
             onEndReachedThreshold={0.1}
             ListFooterComponent={renderFooter}
+            ItemSeparatorComponent={Separator}
             testID="list"
           />
         </>
