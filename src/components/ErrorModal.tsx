@@ -77,7 +77,7 @@ export default function ErrorModal({ closeHandler, children }: Props) {
               <ThemeText style={styles.title}>Error</ThemeText>
             </HeaderContainer>
             <MessageText>{children}</MessageText>
-            <ModalButton onPress={closeHandler}>
+            <ModalButton onPress={closeHandler} testID="try-again">
               <ThemeText style={styles.buttonText}>Try Again</ThemeText>
             </ModalButton>
           </ModalContainer>

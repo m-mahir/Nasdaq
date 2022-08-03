@@ -17,8 +17,9 @@ const mockEmptyResponse = {
 export default {
   get: jest
     .fn()
-    .mockResolvedValueOnce(mockEmptyResponse)
-    .mockResolvedValue(mockResponse),
+    .mockResolvedValue(mockResponse)
+    .mockResolvedValueOnce(mockResponse)
+    .mockResolvedValueOnce(mockEmptyResponse),
   interceptors: {
     request: { use: jest.fn(), eject: jest.fn() },
     response: { use: jest.fn(), eject: jest.fn() },

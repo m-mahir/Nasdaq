@@ -85,7 +85,7 @@ const ExploreScreen: React.FC<
         inputRef={searchRef}
       />
     );
-    if (filter && !stockList.length)
+    if (searchRef.current?.props.value && !stockList.length)
       body = (
         <>
           {search}

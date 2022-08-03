@@ -1,9 +1,10 @@
 import React from "react";
-import { cleanup, render } from "@testing-library/react-native";
+import { cleanup, render, waitFor } from "@testing-library/react-native";
 import StockDetailsScreen from "..";
 import { createOvermind } from "overmind";
 import { Provider } from "overmind-react";
 import { config } from "../../../overmind";
+import { fireEvent } from "react-native-testing-library";
 
 const overmind = createOvermind(config);
 let MockDetails: React.FC;
@@ -12,7 +13,7 @@ const navigation = {
 };
 
 describe("Details Screen", () => {
-  beforeAll(() => {
+  beforeEach(() => {
     jest.mock("../__mocks__/axios");
 
     const createTestProps = (props: Object) => ({
@@ -41,11 +42,20 @@ describe("Details Screen", () => {
     afterEach(cleanup);
   });
 
-  it("should show error modal when request fails", () => {
-    const { findByTestId } = render(<MockDetails />);
+  it("should display/hide error modal correctly", async () => {
+    const { getByTestId, debug } = render(<MockDetails />);
 
     //The mock axios is configured to return a reject response
-    const errorModal = findByTestId("error-modal");
-    expect(errorModal).toBeTruthy();
+    
+    await waitFor(() => getByTestId("error-modal")) //modal is now visible
+    // const errorModal = findByTestId("error-modal");
+    // expect(errorModal).toBeTruthy();
+    // debug();
+
+    // const tryAgainButton = findByTestId("try-again");
+    // fireEvent(tryAgainButton, "press");
+    // const loader = findByTestId("loader");
+    // expect(errorModal).toBeFalsy();
+    // expect(loader).toBeTruthy();
   });
 });

@@ -20,9 +20,9 @@ export const loadStocks = async (
     else context.state.stocks = newStocks;
   } catch (err) {
     console.log(err);
+  } finally {
+    context.state.isLoading = false;
   }
-
-  context.state.isLoading = false;
 };
 
 export const loadStockDetails = async (context: Context, ticker: string) => {
@@ -43,9 +43,9 @@ export const loadStockDetails = async (context: Context, ticker: string) => {
     }
   } catch (err) {
     console.log(err);
+  } finally {
+    context.state.isLoading = false;
   }
-
-  context.state.isLoading = false;
 };
 
 export const loadStockAggs = async (context: Context, ticker: string) => {
@@ -64,9 +64,9 @@ export const loadStockAggs = async (context: Context, ticker: string) => {
     }
   } catch (err) {
     console.log(err);
+  } finally {
+    context.state.isLoadingAggs = false;
   }
-
-  context.state.isLoadingAggs = false;
 };
 
 const addToHistory = (context: Context, stock: Stock) => {
