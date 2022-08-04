@@ -9,10 +9,10 @@ export default function withErrorHandler<Props>(
   WrappedComponent: React.ComponentType<Props>
 ) {
   return (props: Props) => {
-    const [error, clearError] = useHttpErrorHandler();
+    const { error, errorConfirmedHandler } = useHttpErrorHandler();
 
     const closeHandler = () => {
-      if (clearError) clearError();
+      if (errorConfirmedHandler) errorConfirmedHandler();
     };
 
     return (

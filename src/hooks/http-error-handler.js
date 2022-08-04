@@ -1,11 +1,18 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 export default () => {
   const [error, setError] = useState(null);
+  const netInfo = useNetInfo();
+  const connected = netInfo.isConnected;
 
   const reqInterceptor = axios.interceptors.request.use((req) => {
-    setError(null);
+    if (connected === false) {
+      let message = "No internet connection. Please connect and try again.";
+      setError(message);
+      return Promise.reject(message);
+    }
     return req;
   });
   const resInterceptor = axios.interceptors.response.use(
@@ -26,5 +33,5 @@ export default () => {
     setError(null);
   };
 
-  return [error, errorConfirmedHandler];
+  return { error, errorConfirmedHandler, connected };
 };

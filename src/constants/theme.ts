@@ -4,7 +4,8 @@ export default {
     primaryLight: "#53aefc",
     primaryDark: "#1792fb",
     secondary: "white",
-    secondaryLight: "#d1d1d1",
+    secondaryLight: "#dedede",
     error: "#ED213A",
+    disabled: "#bdbdbd",
   },
 };
