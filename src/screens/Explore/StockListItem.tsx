@@ -38,7 +38,11 @@ export default function StockListItem({ stock, onItemClicked }: Props) {
           </ThemeText>
           <ThemeText testID="name">{stock.name}</ThemeText>
         </InfoContainer>
-        <Icon name="chevron-right" size={35} color={theme.colors.secondary} />
+        <Icon
+          name="chevron-right"
+          size={35}
+          color={theme.colors.secondaryLight}
+        />
       </Container>
     </TouchableItem>
   );
