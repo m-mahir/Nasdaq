@@ -13,11 +13,11 @@ import { StatusBar } from "expo-status-bar";
 import { theme } from "./src/constants";
 
 axios.defaults.baseURL = BASE_URL;
-axios.defaults.params = {apiKey : API_KEY}
+axios.defaults.params = { apiKey: API_KEY };
 
 const overmind = createOvermind(config);
 
-export default function App() {
+function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
@@ -27,10 +27,12 @@ export default function App() {
     return (
       <Provider value={overmind}>
         <SafeAreaProvider>
-          <StatusBar backgroundColor={theme.colors.primary }/>
+          <StatusBar backgroundColor={theme.colors.primary} />
           <Navigation colorScheme={colorScheme} />
         </SafeAreaProvider>
       </Provider>
     );
   }
 }
+
+export default App;
