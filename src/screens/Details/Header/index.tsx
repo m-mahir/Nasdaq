@@ -35,7 +35,7 @@ export function Header({ stock }: Props) {
         <Logo url={stock.logo} name={stock.name} />
         <ThemeText style={styles.ticker}>{stock.ticker}</ThemeText>
         <ThemeText style={styles.name}>{stock.name}</ThemeText>
-        {stock.aggregates && <ThemeText style={styles.price}>${stock.aggregates.close}</ThemeText>}
+        {stock.aggregates && <ThemeText style={styles.price}>${stock.aggregates.close?.toFixed(2)}</ThemeText>}
       </View>
     );
 

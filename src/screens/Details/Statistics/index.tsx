@@ -33,11 +33,11 @@ export function Statistics({ aggregates }: Props) {
     if (aggregates?.open)
       return (
         <PricesContainer>
-          <Section title={"Open"}>${aggregates?.open}</Section>
-          <Section title={"Close"}>${aggregates?.close}</Section>
+          <Section title={"Open"}>${aggregates?.open.toFixed(2)}</Section>
+          <Section title={"Close"}>${aggregates?.close?.toFixed(2)}</Section>
           <Section title={"Volume"}>{aggregates?.volume}</Section>
-          <Section title={"High"}>${aggregates?.high}</Section>
-          <Section title={"Low"}>${aggregates?.low}</Section>
+          <Section title={"High"}>${aggregates?.high?.toFixed(2)}</Section>
+          <Section title={"Low"}>${aggregates?.low?.toFixed(2)}</Section>
         </PricesContainer>
       );
     else
