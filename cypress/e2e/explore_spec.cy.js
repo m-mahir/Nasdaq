@@ -1,5 +1,8 @@
 import { API_KEY, BASE_URL } from "../../src/config";
 
+const ticker = "AAPL";
+const name = "Apple Inc.";
+
 const url = `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`;
 
 describe("E2E", () => {
@@ -65,7 +68,6 @@ describe("E2E", () => {
   });
 
   it("handles search data", () => {
-    const ticker = "AAPL";
     cy.intercept(url, { fixture: "stocks.json" }).as("stocks");
     cy.visit("/");
     cy.get("[data-testid=item]").should("have.length", 5);
@@ -75,13 +77,13 @@ describe("E2E", () => {
       .should("contain", ticker);
   });
 
-  it.only("navigate to details", () => {
-    const ticker = "AAPL";
+  it("navigate to details", () => {
     cy.intercept(url, { fixture: "stocks.json" }).as("stocks");
     cy.visit("/");
     cy.title().should("equal", "Explore");
     cy.contains(ticker).click();
     cy.title().should("equal", "Stock Details");
     cy.get("[data-testId=details-ticker]").should("contain", ticker);
+    cy.get("[data-testId=stock-name]").should("contain", name);
   });
 });
