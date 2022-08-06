@@ -1,9 +1,11 @@
 import { API_KEY, BASE_URL } from "../../src/config";
 
+const url = `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`;
+
 describe("E2E", () => {
   // it("displays stock list", () => {
   //   cy.intercept(
-  //     `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`
+  //     url
   //   ).as("stocks");
   //   cy.visit("/");
   //   cy.wait("@stocks")
@@ -19,7 +21,7 @@ describe("E2E", () => {
   //   // slow down the response by 1 second
   //   // https://on.cypress.io/intercept
   //   cy.intercept(
-  //     `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`,
+  //     url,
   //     (req) => {
   //       // use bundled Bluebird library
   //       // which has utility method .delay
@@ -34,22 +36,16 @@ describe("E2E", () => {
   // });
 
   it("shows mock data", () => {
-    cy.intercept(
-      `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`,
-      { fixture: "stocks.json" }
-    ).as("stocks");
+    cy.intercept(url, { fixture: "stocks.json" }).as("stocks");
     cy.visit("/");
     cy.get("[data-testId=item]").should("have.length", 5);
   });
 
   it("shows loading indicator (mock)", () => {
-    cy.intercept(
-      `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`,
-      {
-        fixture: "stocks.json",
-        delay: 1000,
-      }
-    ).as("stocks");
+    cy.intercept(url, {
+      fixture: "stocks.json",
+      delay: 1000,
+    }).as("stocks");
     cy.visit("/");
     cy.get("[data-testid=loader]").should("be.visible");
     cy.get("[data-testid=loader]").should("not.exist");
