@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "ticker": "A",
+      "name": "Agilent Technologies Inc."
+    },
+    {
+      "ticker": "AA",
+      "name": "Alcoa Corporation"
+    },
+    {
+      "ticker": "AAA",
+      "name": "AAF First Priority CLO Bond ETF"
+    },
+    {
+      "ticker": "AAAID",
+      "name": "ALTERNATIVE INVSTMENT NEW"
+    },
+    {
+      "ticker": "AAALF",
+      "name": "AAREAL BANK AG AKT"
+    }
+  ],
+  "status": "OK"
+}
