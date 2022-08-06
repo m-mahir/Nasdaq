@@ -51,4 +51,16 @@ describe("E2E", () => {
     cy.get("[data-testid=loader]").should("not.exist");
     cy.get("[data-testid=item]").should("have.length", 5);
   });
+
+  it("handles network error", () => {
+    cy.intercept(url, { forceNetworkError: true });
+    cy.visit("/", {
+      onBeforeLoad(win) {
+        cy.spy(win.console, "error").as("logError");
+      },
+    });
+    cy.get("@logError").should("have.been.called");
+    // confirm the loading indicator goes away
+    cy.get("[data-testid=loader]").should("not.exist");
+  });
 });
