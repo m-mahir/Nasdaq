@@ -15,23 +15,23 @@ describe("E2E", () => {
   //     });
   // });
 
-  it("shows loading indicator", () => {
-    // slow down the response by 1 second
-    // https://on.cypress.io/intercept
-    cy.intercept(
-      `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`,
-      (req) => {
-        // use bundled Bluebird library
-        // which has utility method .delay
-        // https://on.cypress.io/promise
-        return Cypress.Promise.delay(1000).then(() => req.continue());
-      }
-    ).as("stocks");
-    cy.visit("/");
-    cy.get("[data-testid=loader]").should("be.visible");
-    cy.get("[data-testid=loader]").should("not.exist");
-    cy.wait("@stocks");
-  });
+  // it("shows loading indicator", () => {
+  //   // slow down the response by 1 second
+  //   // https://on.cypress.io/intercept
+  //   cy.intercept(
+  //     `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`,
+  //     (req) => {
+  //       // use bundled Bluebird library
+  //       // which has utility method .delay
+  //       // https://on.cypress.io/promise
+  //       return Cypress.Promise.delay(1000).then(() => req.continue());
+  //     }
+  //   ).as("stocks");
+  //   cy.visit("/");
+  //   cy.get("[data-testid=loader]").should("be.visible");
+  //   cy.get("[data-testid=loader]").should("not.exist");
+  //   cy.wait("@stocks");
+  // });
 
   it("shows mock data", () => {
     cy.intercept(
@@ -40,5 +40,19 @@ describe("E2E", () => {
     ).as("stocks");
     cy.visit("/");
     cy.get("[data-testId=item]").should("have.length", 5);
+  });
+
+  it("shows loading indicator (mock)", () => {
+    cy.intercept(
+      `${BASE_URL}/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=10&apiKey=${API_KEY}`,
+      {
+        fixture: "stocks.json",
+        delay: 1000,
+      }
+    ).as("stocks");
+    cy.visit("/");
+    cy.get("[data-testid=loader]").should("be.visible");
+    cy.get("[data-testid=loader]").should("not.exist");
+    cy.get("[data-testid=item]").should("have.length", 5);
   });
 });
