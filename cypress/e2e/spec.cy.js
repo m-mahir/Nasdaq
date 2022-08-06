@@ -63,4 +63,25 @@ describe("E2E", () => {
     // confirm the loading indicator goes away
     cy.get("[data-testid=loader]").should("not.exist");
   });
+
+  it("handles search data", () => {
+    const ticker = "AAPL";
+    cy.intercept(url, { fixture: "stocks.json" }).as("stocks");
+    cy.visit("/");
+    cy.get("[data-testid=item]").should("have.length", 5);
+    cy.get("[data-testid=search]").type(ticker);
+    cy.get("[data-testId=item]")
+      .should("have.length", 1)
+      .should("contain", ticker);
+  });
+
+  it.only("navigate to details", () => {
+    const ticker = "AAPL";
+    cy.intercept(url, { fixture: "stocks.json" }).as("stocks");
+    cy.visit("/");
+    cy.title().should("equal", "Explore");
+    cy.contains(ticker).click();
+    cy.title().should("equal", "Stock Details");
+    cy.get("[data-testId=details-ticker]").should("contain", ticker);
+  });
 });

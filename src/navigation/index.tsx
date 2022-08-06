@@ -45,7 +45,7 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={ExploreScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, title: "Explore" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen
@@ -58,7 +58,7 @@ function RootNavigator() {
             },
             headerTintColor: theme.colors.secondary,
             headerTitleStyle: {
-              fontSize: 24
+              fontSize: 24,
             },
           }}
         />
