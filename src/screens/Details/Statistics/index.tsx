@@ -29,13 +29,24 @@ const LoaderContainer = styled.View`
 export function Statistics({ aggregates }: Props) {
   const loadingAggs = useAppState().isLoadingAggs;
 
+  const numFormatter = (num?: number) => {
+    if (num) {
+      if (num > 999 && num < 1000000) return (num / 1000).toFixed(1) + "K";
+      else if (num > 1000000 && num < 1000000000)
+        return (num / 1000000).toFixed(1) + "M";
+      else if (num > 1000000000) return (num / 1000000000).toFixed(1) + "B";
+      return num;
+    }
+    return;
+  };
+
   const getStatisticsBody = () => {
     if (aggregates?.open)
       return (
         <PricesContainer>
           <Section title={"Open"}>${aggregates?.open.toFixed(2)}</Section>
           <Section title={"Close"}>${aggregates?.close?.toFixed(2)}</Section>
-          <Section title={"Volume"}>{aggregates?.volume}</Section>
+          <Section title={"Volume"}>{numFormatter(aggregates?.volume)}</Section>
           <Section title={"High"}>${aggregates?.high?.toFixed(2)}</Section>
           <Section title={"Low"}>${aggregates?.low?.toFixed(2)}</Section>
         </PricesContainer>

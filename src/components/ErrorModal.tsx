@@ -68,9 +68,8 @@ export default function ErrorModal({ closeHandler, children }: Props) {
       transparent={false}
       visible={!!children}
       onRequestClose={closeHandler}
-      testID="error-modal"
     >
-      <Container>
+      <Container testID="error-modal">
         <ModalBackground>
           <ModalContainer>
             <HeaderContainer>

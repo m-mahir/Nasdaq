@@ -40,7 +40,7 @@ export function Header({ stock }: Props) {
           {stock.name}
         </ThemeText>
         {stock.aggregates && (
-          <ThemeText style={styles.price}>
+          <ThemeText style={styles.price} testID="price">
             ${stock.aggregates.close?.toFixed(2)}
           </ThemeText>
         )}

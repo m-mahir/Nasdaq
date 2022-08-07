@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/19</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/19</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -105,37 +105,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from "axios";
 import { useState, useEffect } from "react";
@@ -156,8 +156,8 @@ export default () =&gt; {
   });
   const resInterceptor = axios.interceptors.response.use(
     (res) =&gt; res,
-<span class="fstat-no" title="function not covered" >    (e</span>rr) =&gt; {
-<span class="cstat-no" title="statement not covered" >      setError(err.response?.data?.error);</span>
+    (err) =&gt; {
+      setError(err.response?.data?.error);
     }
   );
 &nbsp;
@@ -168,8 +168,8 @@ export default () =&gt; {
     };
   }, [reqInterceptor, resInterceptor]);
 &nbsp;
-  const errorConfirmedHandler = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    setError(null);</span>
+  const errorConfirmedHandler = () =&gt; {
+    setError(null);
   };
 &nbsp;
   return { error, errorConfirmedHandler, connected };
@@ -181,7 +181,7 @@ export default () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-06T07:09:34.328Z
+                at 2022-08-07T00:19:54.945Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
