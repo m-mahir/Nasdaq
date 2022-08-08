@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FlatList, ListRenderItem } from "react-native";
 import StockListItem from "./StockListItem";
 import Loader from "../../components/Loader";
@@ -56,4 +56,4 @@ const List = ({ dataList, bottomScrollHandler, loading }: Props) => {
   );
 };
 
-export default List;
+export default memo(List);

@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Search from "./Search";
 import Loader from "../../components/Loader";
 
@@ -37,19 +37,19 @@ const ExploreScreen: React.FC<
       timeout = setTimeout(() => {
         if (filter === searchRef.current.props.value)
           loadData({ search: filter });
-      }, 500);
+      }, 1000);
     } else loadData();
     return () => {
       if (timeout) clearTimeout(timeout);
     };
   }, [filter]);
 
-  const handleBottomScroll = () => {
+  const handleBottomScroll = useCallback(() => {
     if (stockList.length >= 10 && stockList.length % 10 === 0) {
       loadData({ search: filter, isLoadMore: true });
       setIsLoadMore(true);
     }
-  };
+  }, [stockList, filter]);
 
   let body, search;
   if (loading && !isLoadMore) body = <Loader />;
