@@ -1,7 +1,13 @@
-import { Image, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 import { ThemeText } from "../../../components/ThemeText";
 import { API_KEY } from "../../../config";
 import { theme } from "../../../constants";
+
+const StyledImage = styled.Image`
+  width: 50px;
+  height: 50px;
+`;
 
 interface Props {
   url?: string;
@@ -11,7 +17,7 @@ interface Props {
 const Logo: React.FC<Props> = ({ url, name }) => {
   if (url)
     return (
-      <Image
+      <StyledImage
         style={styles.logo}
         source={{
           uri: url + "?apiKey=" + API_KEY,
@@ -29,15 +35,13 @@ const Logo: React.FC<Props> = ({ url, name }) => {
 
 const styles = StyleSheet.create({
   logo: {
-    width: 50,
-    height: 50,
     borderRadius: 10,
     alignSelf: "center",
+    overflow: "hidden",
   },
   initials: {
     backgroundColor: theme.colors.primary,
-    textAlign: "center",
-    textAlignVertical: "center",
+    padding: 14,
     fontSize: 20,
   },
 });
