@@ -41,7 +41,7 @@ export function Header({ stock }: Props) {
         </ThemeText>
         {stock.aggregates && (
           <ThemeText style={styles.price} testID="price">
-            ${stock.aggregates.close?.toFixed(2)}
+            {"$" + stock.aggregates.close?.toFixed(2)}
           </ThemeText>
         )}
       </View>

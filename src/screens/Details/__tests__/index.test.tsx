@@ -6,8 +6,12 @@ import * as About from "../About/Section";
 import { Chance } from "chance";
 import Logo from "../Header/Logo";
 import { API_KEY } from "../../../config";
+import { Header } from "../Header";
+import { createOvermind } from "overmind";
+import { config } from "../../../overmind";
+import { Provider } from "overmind-react";
 
-describe("Explore Screen", () => {
+describe("Details - Unit Tests", () => {
   afterEach(cleanup);
 
   it("renders logo image correctly", () => {
@@ -59,5 +63,28 @@ describe("Explore Screen", () => {
     );
     expect(getByTestId("about-title").props.children).toEqual(title);
     expect(getByTestId("about-desc").props.children).toEqual(desc);
+  });
+});
+
+describe("Details - Integration Tests", () => {
+  afterEach(cleanup);
+
+  it("displays header data correctly", () => {
+    const overmind = createOvermind(config);
+
+    const ticker = "AAPL";
+    const name = "Apple Inc.";
+    const chance = new Chance();
+    let price = chance.floating({ fixed: 5 });
+    const stock = { name, ticker, aggregates: { close: price } };
+    const { getByTestId } = render(
+      <Provider value={overmind}>
+        <Header stock={stock} />
+      </Provider>
+    );
+
+    expect(getByTestId("details-ticker").props.children).toEqual(ticker);
+    expect(getByTestId("stock-name").props.children).toEqual(name);
+    expect(getByTestId("price").props.children).toEqual("$" + price.toFixed(2));
   });
 });
