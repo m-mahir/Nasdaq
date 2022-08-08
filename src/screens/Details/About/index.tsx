@@ -4,7 +4,7 @@ import { theme } from "../../../constants";
 import { useAppState } from "../../../overmind";
 import { Stock } from "../../../overmind/state";
 import { ThemeText } from "../../../components/ThemeText";
-import Section from "./Section";
+import { Section } from "./Section";
 import styled from "styled-components/native";
 
 interface Props {

@@ -3,9 +3,10 @@ import styled from "styled-components/native";
 import Loader from "../../../components/Loader";
 import { ThemeText } from "../../../components/ThemeText";
 import { theme } from "../../../constants";
+import { numFormatter } from "../../../helper";
 import { useAppState } from "../../../overmind";
 import { Aggregates } from "../../../overmind/state";
-import Section from "./Section";
+import { Section } from "./Section";
 
 interface Props {
   aggregates?: Aggregates;
@@ -28,17 +29,6 @@ const LoaderContainer = styled.View`
 
 export function Statistics({ aggregates }: Props) {
   const loadingAggs = useAppState().isLoadingAggs;
-
-  const numFormatter = (num?: number) => {
-    if (num) {
-      if (num > 999 && num < 1000000) return (num / 1000).toFixed(1) + "K";
-      else if (num > 1000000 && num < 1000000000)
-        return (num / 1000000).toFixed(1) + "M";
-      else if (num > 1000000000) return (num / 1000000000).toFixed(1) + "B";
-      return num;
-    }
-    return;
-  };
 
   const getStatisticsBody = () => {
     if (aggregates?.open)

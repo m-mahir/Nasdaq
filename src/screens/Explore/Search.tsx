@@ -7,7 +7,7 @@ interface Props {
   placeholder: string;
   onChange: (val: string) => void;
   value: string;
-  inputRef: any;
+  inputRef?: any;
 }
 
 const StyledView = styled.View`

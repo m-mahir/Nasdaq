@@ -16,11 +16,12 @@ const Logo: React.FC<Props> = ({ url, name }) => {
         source={{
           uri: url + "?apiKey=" + API_KEY,
         }}
+        testID="logo-image"
       />
     );
   else
     return (
-      <ThemeText style={[styles.logo, styles.initials]}>
+      <ThemeText style={[styles.logo, styles.initials]} testID="logo-text">
         {name.substring(0, 2)}
       </ThemeText>
     );

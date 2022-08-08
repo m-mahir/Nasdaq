@@ -3,5 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "http://localhost:19006"
-  }
+  },
+  "exclude": [
+    "./cypress.config.ts"
+  ]
 }

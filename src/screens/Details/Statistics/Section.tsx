@@ -11,10 +11,10 @@ const StyledView = styled.View`
   margin-top: 12px;
 `;
 
-const Section: React.FC<Props> = ({ title, children }) => (
+export const Section: React.FC<Props> = ({ title, children }) => (
   <StyledView>
-    <ThemeText style={styles.title}>{title}</ThemeText>
-    <ThemeText style={styles.price}>{children}</ThemeText>
+    <ThemeText style={styles.title} testID="statistics-title">{title}</ThemeText>
+    <ThemeText style={styles.price} testID="statistics-price">{children}</ThemeText>
   </StyledView>
 );
 
@@ -27,5 +27,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default Section;

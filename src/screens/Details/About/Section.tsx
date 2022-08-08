@@ -8,12 +8,16 @@ interface Props {
 
 const Container = styled.View`
   margin-top: 12px;
-`
+`;
 
-const Section: React.FC<Props> = ({ title, children }) => (
+export const Section: React.FC<Props> = ({ title, children }) => (
   <Container>
-    <ThemeText style={styles.title}>{title}</ThemeText>
-    <ThemeText style={styles.text}>{children}</ThemeText>
+    <ThemeText style={styles.title} testID="about-title">
+      {title}
+    </ThemeText>
+    <ThemeText style={styles.text} testID="about-desc">
+      {children}
+    </ThemeText>
   </Container>
 );
 
@@ -26,5 +30,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default Section;
