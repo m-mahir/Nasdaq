@@ -1,18 +1,15 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, ListRenderItem } from "react-native";
 import Search from "./Search";
-import StockListItem from "./StockListItem";
 import Loader from "../../components/Loader";
 
 import { theme } from "../../constants";
 import { useActions, useAppState } from "../../overmind";
-import { Stock } from "../../overmind/state";
 import { RootStackParamList } from "../../../types";
 import styled from "styled-components/native";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import NoData from "./NoData";
-import Separator from "./Separator";
+import List from "./List";
 
 const Container = styled.View`
   flex: 1;
@@ -20,15 +17,9 @@ const Container = styled.View`
   background-color: ${theme.colors.primary};
 `;
 
-const FooterContainer = styled.View`
-  background-color: ${theme.colors.primary};
-  padding-top: 35px;
-  padding-bottom: 45px;
-`;
-
 const ExploreScreen: React.FC<
   NativeStackScreenProps<RootStackParamList, "Root", "Modal">
-> = ({ navigation }) => {
+> = () => {
   const loading = useAppState().isLoading;
   const stockList = useAppState().stocks;
   const loadData = useActions().loadStocks;
@@ -53,26 +44,12 @@ const ExploreScreen: React.FC<
     };
   }, [filter]);
 
-  const itemClickedHandler = (ticker: string) =>
-    navigation.navigate("StockDetails", { ticker });
-
-  const renderItem: ListRenderItem<Stock> = ({ item }) => {
-    return (
-      <StockListItem
-        stock={item}
-        onItemClicked={() => itemClickedHandler(item.ticker)}
-      />
-    );
+  const handleBottomScroll = () => {
+    if (stockList.length >= 10 && stockList.length % 10 === 0) {
+      loadData({ search: filter, isLoadMore: true });
+      setIsLoadMore(true);
+    }
   };
-
-  const Footer = (
-    <>
-      <Separator />
-      <FooterContainer>
-        {stockList && stockList.length >= 10 && loading ? <Loader /> : null}
-      </FooterContainer>
-    </>
-  );
 
   let body, search;
   if (loading && !isLoadMore) body = <Loader />;
@@ -98,18 +75,10 @@ const ExploreScreen: React.FC<
       body = (
         <>
           {search}
-          <FlatList
-            data={stockList}
-            renderItem={renderItem}
-            onEndReached={() => {
-              if (stockList.length >= 10 && stockList.length % 10 === 0) {
-                loadData({ search: filter, isLoadMore: true });
-                setIsLoadMore(true);
-              }
-            }}
-            ListFooterComponent={Footer}
-            ItemSeparatorComponent={Separator}
-            testID="list"
+          <List
+            dataList={stockList}
+            bottomScrollHandler={handleBottomScroll}
+            loading={loading}
           />
         </>
       );
