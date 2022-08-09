@@ -10,7 +10,6 @@ export default function withErrorHandler<Props>(
 ) {
   return (props: Props) => {
     const { error, errorConfirmedHandler } = useHttpErrorHandler();
-    console.log(error);
 
     const closeHandler = () => {
       if (errorConfirmedHandler) errorConfirmedHandler();
