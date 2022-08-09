@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "Nasdaq",
-    "slug": "Nasdaq",
+    "slug": "nasdaq",
+    "description": "A simple stock market app. It shows all stocks listed in Nasdaq exchange with their details.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
