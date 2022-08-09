@@ -27,7 +27,7 @@ function App() {
     return (
       <Provider value={overmind}>
         <SafeAreaProvider>
-          <StatusBar backgroundColor={theme.colors.primary} />
+          <StatusBar backgroundColor={theme.colors.primary} style="light" />
           <Navigation colorScheme={colorScheme} />
         </SafeAreaProvider>
       </Provider>

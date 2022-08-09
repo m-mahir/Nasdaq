@@ -64,7 +64,7 @@ export default function ErrorModal({ closeHandler, children }: Props) {
   const { connected } = useHttpErrorHandler();
   return (
     <Modal
-      animationType="slide"
+      // animationType="slide"
       transparent={false}
       visible={!!children}
       onRequestClose={closeHandler}

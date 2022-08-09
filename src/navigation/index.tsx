@@ -47,7 +47,7 @@ function RootNavigator() {
         component={ExploreScreen}
         options={{ headerShown: false, title: "Explore" }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
+      <Stack.Group>
         <Stack.Screen
           name="StockDetails"
           component={StockDetailsScreen}
