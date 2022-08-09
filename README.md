@@ -20,7 +20,7 @@ your local machine for development and testing purposes.
 Follow this [guide](https://reactnative.dev/docs/environment-setup).
 
 * Npm package manager
-* Expo v.40
+* Expo v.45
 * Make sure you have an Android or iOS device with Expo Client installed. Also, you can use an Android or iOS emulator.
 
 #### Running with Expo
