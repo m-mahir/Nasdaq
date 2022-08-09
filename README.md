@@ -6,9 +6,9 @@ A simple stock market app. It shows all stocks listed in Nasdaq exchange with th
 
 ### Features
 
-1. Support to detect internet connection, unmount the app, and display a connection failure screen.
+1. A beautiful UI with infinite scrolling, filters.
 2. API data caching for a friendly experience and better performance.
-3. A beautiful UI with infinite scrolling, filters.
+<!-- 3. Support to detect internet connection, unmount the app, and display a connection failure screen. -->
 
 ### Getting Started
 
